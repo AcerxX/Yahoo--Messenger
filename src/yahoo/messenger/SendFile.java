@@ -36,63 +36,13 @@ public class SendFile extends javax.swing.JFrame {
 
         @Override
         protected Integer doInBackground() throws Exception {
-            try {
-                
-                /* Send /send command to server */
-                YahooMessenger.MultiThreadChatClient.os.println("/send");
-                /* Send destination user to server */
-                YahooMessenger.MultiThreadChatClient.os.println("acerx2"); 
-                //YahooMessenger.MultiThreadChatClient.os.flush();
-                
-                /* Send filename to server */
-                YahooMessenger.MultiThreadChatClient.os.println(fileDlg.getSelectedFile().getName() + "\n");
-                //YahooMessenger.MultiThreadChatClient.os.flush();
-
-                /* Get READY reponse from server */
-                //BufferedReader inReader = new BufferedReader(new InputStreamReader(sk.getInputStream()));
-
-                String serverStatus = YahooMessenger.MultiThreadChatClient.is.readLine(); // Read the first line
-
-                /* If server is ready, send the file */
-                if (serverStatus.equals("READY")) {
-
-                    FileInputStream file = new FileInputStream(filename);
-
-                    byte[] buffer = new byte[YahooMessenger.MultiThreadChatClient.clientSocket.getSendBufferSize()];
-
-                    int bytesRead = 0;
-
-                    total = 0;
-                    start = System.currentTimeMillis();
-
-                    while ((bytesRead = file.read(buffer)) > 0) {
-                        total += bytesRead;
-                        YahooMessenger.MultiThreadChatClient.os.write(buffer, 0, bytesRead);
-                        cost = System.currentTimeMillis() - start;
-                        if ((cost > 0) && (System.currentTimeMillis() % 2 == 0)) {
-                            speed = total / cost;
-                            //jLabel9.setText(speed + " KB/s");
-                        }
-                        //jProgressBar1.setValue((int) ((total * 100) / filesize));
-                    }
-
-                    jLabel3.setText("Complete!");
-                    YahooMessenger.MultiThreadChatClient.os.println("/OVER");
-                    file.close();
-
-                }
-            } catch (IOException ex) {
-                /* Catch any errors */
-                //jLabel11.setText(ex.getMessage());
-            }
+            
             return 666;
         }
 
         @Override
         protected void done() {
-            //jButton3.setEnabled(true);
-            //jButton4.setEnabled(true);
-            //jTextField3.setEnabled(true);
+            jLabel3.setText("NOT WORKING YET!");
         }
     }
 

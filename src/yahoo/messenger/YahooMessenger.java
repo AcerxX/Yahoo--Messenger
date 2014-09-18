@@ -8,6 +8,8 @@ package yahoo.messenger;
 import static java.awt.event.KeyEvent.VK_ENTER;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -187,7 +189,7 @@ public class YahooMessenger extends javax.swing.JFrame {
             MultiThreadChatClient.main(new String[0]);
             return 666;
         }
-        
+
     }
 
     static class MultiThreadChatClient implements Runnable {
@@ -238,7 +240,7 @@ public class YahooMessenger extends javax.swing.JFrame {
             if (clientSocket != null && os != null && is != null) {
                 try {
                     /* Create a thread to read from the server. */
-                    new Thread(new MultiThreadChatClient()).start();                    
+                    new Thread(new MultiThreadChatClient()).start();
                     while (!closed) {
                         inputLine = message;
                         System.out.print("");
@@ -273,6 +275,9 @@ public class YahooMessenger extends javax.swing.JFrame {
             String responseLine;
             try {
                 while ((responseLine = is.readLine()) != null) {
+                    if (responseLine.startsWith("/send")) {
+                        /* NOTHING */
+                    }
                     chatBox.append(responseLine + "\n");
                     if (responseLine.indexOf("*** Bye") != -1) {
                         break;
