@@ -7,12 +7,14 @@ package yahoo.messenger;
 
 import static java.awt.event.KeyEvent.VK_ENTER;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.Reader;
 import java.net.Socket;
@@ -276,7 +278,47 @@ public class YahooMessenger extends javax.swing.JFrame {
             try {
                 while ((responseLine = is.readLine()) != null) {
                     if (responseLine.startsWith("/send")) {
-                        /* NOTHING */
+                        long sstart, scost, sspeed, stotal;
+
+                        Socket sk = new Socket("5.12.46.50", 5557);
+
+                        /* Set variables for the server */
+                        InputStream input = sk.getInputStream();
+                        BufferedReader inReader = new BufferedReader(new InputStreamReader(sk.getInputStream()));
+                        BufferedWriter outReader = new BufferedWriter(new OutputStreamWriter(sk.getOutputStream()));
+
+                        /* Read the filename */
+                        String filename = inReader.readLine();
+
+                        if (!filename.equals("")) {
+
+                            /* Reply back to client with READY status */
+                            outReader.write("READY\n");
+                            outReader.flush();
+                        }
+
+                        /* Create a new file in the tmp directory using the filename */
+                        FileOutputStream wr = new FileOutputStream(new File("C://tmp/" + filename));
+
+                        /* Get the buffer length from the server */
+                        int len = Integer.parseInt(inReader.readLine());
+                        byte[] buffer = new byte[len];
+
+                        int bytesReceived = 0;
+                        stotal = 0;
+                        sstart = System.currentTimeMillis();
+
+                        while ((bytesReceived = input.read(buffer)) > 0) {
+                            stotal += bytesReceived;
+                            /* Write to the file */
+                            wr.write(buffer, 0, bytesReceived);
+                            scost = System.currentTimeMillis() - sstart;
+                            if (scost > 0) {
+                                sspeed = stotal / scost;
+                                System.out.println(sspeed + " KB/s");
+                            }
+                        }
+                        continue;
                     }
                     chatBox.append(responseLine + "\n");
                     if (responseLine.indexOf("*** Bye") != -1) {

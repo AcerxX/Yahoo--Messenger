@@ -21,6 +21,7 @@ import javax.swing.SwingWorker;
  * @author alexa_000
  */
 public class SendFile extends javax.swing.JFrame {
+
     private JFileChooser fileDlg;
     private long filesize, total, start, cost, speed;
     private String filename;
@@ -31,18 +32,66 @@ public class SendFile extends javax.swing.JFrame {
     public SendFile() {
         initComponents();
     }
-    
+
     class sendingFile extends SwingWorker<Integer, Integer> {
 
         @Override
         protected Integer doInBackground() throws Exception {
+            /* Try to connect to the server on localhost, port 5556 */
+            YahooMessenger.MultiThreadChatClient.os.println("/send");
+            Socket sk = new Socket("5.12.46.50", 5557);
+            OutputStream output = sk.getOutputStream();
             
+            OutputStreamWriter outputStream = new OutputStreamWriter(sk.getOutputStream());
+            BufferedReader inReader = new BufferedReader(new InputStreamReader(sk.getInputStream()));
+            
+            /* Send receiver to the server */
+            outputStream.write("acerx2" + "\n" );
+            outputStream.flush();
+            
+            /* Send filename to server */
+            outputStream.write(fileDlg.getSelectedFile().getName() + "\n");
+            outputStream.flush();
+
+            /* Get reponse from server */
+            String serverStatus = inReader.readLine();
+
+            /* If server is ready, send the file */
+            if (serverStatus.equals("READY")) {
+                FileInputStream file = new FileInputStream(filename);
+                
+                /* Get the buffer length from the server */
+                int len = Integer.parseInt(inReader.readLine());
+                byte[] buffer = new byte[len];
+
+                int bytesRead = 0;
+
+                total = 0;
+                start = System.currentTimeMillis();
+
+                while ((bytesRead = file.read(buffer)) > 0) {
+                    total += bytesRead;
+                    output.write(buffer, 0, bytesRead);
+                    cost = System.currentTimeMillis() - start;
+                    if ((cost > 0) && (System.currentTimeMillis() % 2 == 0)) {
+                        speed = total / cost;
+                        System.out.println(speed + " KB/s");
+                    }
+                    //jProgressBar1.setValue((int) ((total * 100) / filesize));
+                }
+
+                System.out.println("Complete!");
+                output.close();
+                file.close();
+                sk.close();
+            }
+
             return 666;
         }
 
         @Override
         protected void done() {
-            jLabel3.setText("NOT WORKING YET!");
+            jLabel3.setText("Complete!");
         }
     }
 
