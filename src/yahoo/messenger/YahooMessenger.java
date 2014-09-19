@@ -51,6 +51,8 @@ public class YahooMessenger extends javax.swing.JFrame {
         messageBox = new javax.swing.JTextArea();
         sendButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        onlineUsers = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -95,6 +97,12 @@ public class YahooMessenger extends javax.swing.JFrame {
             }
         });
 
+        onlineUsers.setColumns(20);
+        onlineUsers.setFont(new java.awt.Font("Comic Sans MS", 0, 10)); // NOI18N
+        onlineUsers.setRows(5);
+        onlineUsers.setEnabled(false);
+        jScrollPane3.setViewportView(onlineUsers);
+
         jMenu1.setText("File");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
@@ -131,20 +139,25 @@ public class YahooMessenger extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(sendButton, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sendButton, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addGap(7, 7, 7)
@@ -211,7 +224,7 @@ public class YahooMessenger extends javax.swing.JFrame {
             // The default port.
             int portNumber = 5556;
             // The default host.
-            String host = "5.12.46.50";
+            String host = "188.26.255.139";
 
             if (args.length < 2) {
                 chatBox.append("Usage: java MultiThreadChatClient <host> <portNumber>\n"
@@ -274,9 +287,20 @@ public class YahooMessenger extends javax.swing.JFrame {
              * Keep on reading from the socket till we receive "Bye" from the
              * server. Once we received that then we want to break.
              */
-            String responseLine;
+            String responseLine, users;
             try {
                 while ((responseLine = is.readLine()) != null) {
+                    
+                    /* Users online */
+                    if (responseLine.startsWith("/users")) {
+                        onlineUsers.setText("");
+                        while(!(users = is.readLine()).equals("/usersEnd")){
+                            onlineUsers.append(users+"\n");
+                        }
+                        continue;
+                    }
+                    
+                    /* File transfer protocol */
                     if (responseLine.startsWith("/send")) {
                         long sstart, scost, sspeed, stotal;
 
@@ -320,6 +344,8 @@ public class YahooMessenger extends javax.swing.JFrame {
                         }
                         continue;
                     }
+                    
+                    /* Normal chat messages */ 
                     chatBox.append(responseLine + "\n");
                     if (responseLine.indexOf("*** Bye") != -1) {
                         break;
@@ -383,7 +409,9 @@ public class YahooMessenger extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private static javax.swing.JTextArea messageBox;
+    private static javax.swing.JTextArea onlineUsers;
     private javax.swing.JButton sendButton;
     // End of variables declaration//GEN-END:variables
     private static String message;

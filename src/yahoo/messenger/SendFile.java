@@ -39,7 +39,7 @@ public class SendFile extends javax.swing.JFrame {
         protected Integer doInBackground() throws Exception {
             /* Try to connect to the server on localhost, port 5556 */
             YahooMessenger.MultiThreadChatClient.os.println("/send");
-            Socket sk = new Socket("5.12.46.50", 5557);
+            Socket sk = new Socket("188.26.255.139", 5557);
             OutputStream output = sk.getOutputStream();
             
             OutputStreamWriter outputStream = new OutputStreamWriter(sk.getOutputStream());
