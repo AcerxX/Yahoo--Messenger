@@ -37,6 +37,8 @@ public class YahooMessenger extends javax.swing.JFrame {
 
     /**
      * Creates new form YahooMessenger
+     * @throws java.net.MalformedURLException
+     * @throws java.io.IOException
      */
     public YahooMessenger() throws MalformedURLException, IOException {
         /* Updater Script */
@@ -49,26 +51,28 @@ public class YahooMessenger extends javax.swing.JFrame {
         version.delete();
 
         // Check if update exists
-        /*URL website = new URL("http://aica.org.ro/images/FTP/version.txt");
-        ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-        FileOutputStream fos = new FileOutputStream("version.txt");
-        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+        if (betaVersion == false) {
+            URL website = new URL("http://aica.org.ro/images/FTP/version.txt");
+            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+            FileOutputStream fos = new FileOutputStream("version.txt");
+            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 
-        BufferedReader x = new BufferedReader(new FileReader("version.txt"));
-        String latestVersion = x.readLine();
-        if (!myVersion.equals(latestVersion)) {
-            // Get updater from server
-            URL srv = new URL("http://aica.org.ro/images/FTP/Updater.jpg");
-            ReadableByteChannel rbc2 = Channels.newChannel(srv.openStream());
-            FileOutputStream fos2 = new FileOutputStream("updater.jar");
-            fos2.getChannel().transferFrom(rbc2, 0, Long.MAX_VALUE);
+            BufferedReader x = new BufferedReader(new FileReader("version.txt"));
+            String latestVersion = x.readLine();
+            if (!myVersion.equals(latestVersion)) {
+                // Get updater from server
+                URL srv = new URL("http://aica.org.ro/images/FTP/Updater.jpg");
+                ReadableByteChannel rbc2 = Channels.newChannel(srv.openStream());
+                FileOutputStream fos2 = new FileOutputStream("updater.jar");
+                fos2.getChannel().transferFrom(rbc2, 0, Long.MAX_VALUE);
 
-            // Start the updater
-            Runtime.getRuntime().exec("cmd /c java -jar updater.jar");
+                // Start the updater
+                Runtime.getRuntime().exec("cmd /c java -jar updater.jar");
 
-            System.exit(0);
+                System.exit(0);
 
-        }*/
+            }
+        }
 
         /* End of Updater Script */
         initComponents();
@@ -372,19 +376,11 @@ public class YahooMessenger extends javax.swing.JFrame {
                         int len = Integer.parseInt(inReader.readLine());
                         byte[] buffer = new byte[len];
 
-                        int bytesReceived = 0;
-                        stotal = 0;
-                        sstart = System.currentTimeMillis();
+                        int bytesReceived;
 
                         while ((bytesReceived = input.read(buffer)) > 0) {
-                            stotal += bytesReceived;
                             /* Write to the file */
-                            wr.write(buffer, 0, bytesReceived);
-                            scost = System.currentTimeMillis() - sstart;
-                            if (scost > 0) {
-                                sspeed = stotal / scost;
-                                System.out.println(sspeed + " KB/s");
-                            }
+                            wr.write(buffer, 0, bytesReceived);                            
                         }
                         continue;
                     }
@@ -399,6 +395,7 @@ public class YahooMessenger extends javax.swing.JFrame {
                 closed = true;
             } catch (IOException e) {
                 chatBox.append("IOException:  " + e);
+                e.printStackTrace();
             }
         }
     }
@@ -437,6 +434,7 @@ public class YahooMessenger extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     new YahooMessenger().setVisible(true);
@@ -467,4 +465,5 @@ public class YahooMessenger extends javax.swing.JFrame {
     private static String lastMessage = null;
     public static ArrayList<String> usersList = new ArrayList<String>();
     public static final String myVersion = "101";
+    public static final boolean betaVersion = true;
 }
