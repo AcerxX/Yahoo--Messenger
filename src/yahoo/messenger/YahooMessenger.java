@@ -16,9 +16,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
-import java.io.Reader;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import javax.swing.SwingWorker;
 
 /**
@@ -180,6 +180,7 @@ public class YahooMessenger extends javax.swing.JFrame {
         if (evt.getKeyCode() == VK_ENTER) {
             message = messageBox.getText();
             messageBox.setText("");
+            evt.consume();
         }
     }//GEN-LAST:event_messageBoxKeyPressed
 
@@ -294,8 +295,10 @@ public class YahooMessenger extends javax.swing.JFrame {
                     /* Users online */
                     if (responseLine.startsWith("/users")) {
                         onlineUsers.setText("");
+                        usersList.clear();
                         while(!(users = is.readLine()).equals("/usersEnd")){
-                            onlineUsers.append(users+"\n");
+                            onlineUsers.append(users.substring(1)+"\n");
+                            usersList.add(users.substring(1));
                         }
                         continue;
                     }
@@ -304,7 +307,7 @@ public class YahooMessenger extends javax.swing.JFrame {
                     if (responseLine.startsWith("/send")) {
                         long sstart, scost, sspeed, stotal;
 
-                        Socket sk = new Socket("5.12.46.50", 5557);
+                        Socket sk = new Socket("188.26.255.139", 5557);
 
                         /* Set variables for the server */
                         InputStream input = sk.getInputStream();
@@ -416,4 +419,5 @@ public class YahooMessenger extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private static String message;
     private static String lastMessage = null;
+    public static ArrayList<String> usersList = new ArrayList<String>();
 }

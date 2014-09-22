@@ -8,7 +8,6 @@ package yahoo.messenger;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -31,6 +30,10 @@ public class SendFile extends javax.swing.JFrame {
      */
     public SendFile() {
         initComponents();
+        for(String x : YahooMessenger.usersList){
+            jComboBox1.addItem(x);
+        }
+        
     }
 
     class sendingFile extends SwingWorker<Integer, Integer> {
@@ -46,7 +49,8 @@ public class SendFile extends javax.swing.JFrame {
             BufferedReader inReader = new BufferedReader(new InputStreamReader(sk.getInputStream()));
             
             /* Send receiver to the server */
-            outputStream.write("acerx2" + "\n" );
+            String receiver = jComboBox1.getSelectedItem().toString();
+            outputStream.write(receiver + "\n" );
             outputStream.flush();
             
             /* Send filename to server */
@@ -116,7 +120,11 @@ public class SendFile extends javax.swing.JFrame {
         setTitle("Send File");
         setResizable(false);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Choose a user:");
 
@@ -136,7 +144,7 @@ public class SendFile extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("jLabel3");
+        jLabel3.setText("Status");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -174,7 +182,7 @@ public class SendFile extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton2)
                     .addComponent(jLabel3))
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -193,6 +201,10 @@ public class SendFile extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new sendingFile().execute();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
