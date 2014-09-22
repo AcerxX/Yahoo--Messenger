@@ -54,7 +54,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
-    <Property name="title" type="java.lang.String" value="Yahoo! Messenger RELOADED"/>
+    <Property name="title" type="java.lang.String" value="Yahooo Messenger v1.0"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>

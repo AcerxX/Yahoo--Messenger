@@ -13,14 +13,21 @@ import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
+import java.net.MalformedURLException;
 import java.net.Socket;
+import java.net.URL;
 import java.net.UnknownHostException;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 
 /**
@@ -32,9 +39,46 @@ public class YahooMessenger extends javax.swing.JFrame {
     /**
      * Creates new form YahooMessenger
      */
-    public YahooMessenger() {
+    public YahooMessenger() throws MalformedURLException, IOException {
+        /* Updater Script */
+        // Remove old files
+        File updater = new File("Updater.jar");
+        if (updater.exists()) {
+            updater.delete();
+        }
+        File version = new File("version.txt");
+        if (version.exists()) {
+            version.delete();
+        }
+
+        // Check if update exists
+        URL website = new URL("http://aica.org.ro/images/FTP/version.txt");
+        ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+        FileOutputStream fos = new FileOutputStream("version.txt");
+        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+
+        BufferedReader x = new BufferedReader(new FileReader("version.txt"));
+        String latestVersion = x.readLine();
+        if (!myVersion.equals(latestVersion)) {
+            // Get updater from server
+            URL srv = new URL("http://aica.org.ro/images/FTP/Updater.jpg");
+            ReadableByteChannel rbc2 = Channels.newChannel(srv.openStream());
+            FileOutputStream fos2 = new FileOutputStream("updater.jar");
+            fos2.getChannel().transferFrom(rbc2, 0, Long.MAX_VALUE);
+
+            // Start the updater
+            Runtime.getRuntime().exec("cmd /c java -jar updater.jar");
+
+            System.exit(0);
+
+        }
+
+        /* End of Updater Script */
+        
         initComponents();
+        
         new chatClient().execute();
+        
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
                 message = "/quit";
@@ -70,7 +114,7 @@ public class YahooMessenger extends javax.swing.JFrame {
         jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Yahoo! Messenger RELOADED");
+        setTitle("Yahooo Messenger v1.0");
         setResizable(false);
 
         chatBox.setColumns(20);
@@ -397,7 +441,11 @@ public class YahooMessenger extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new YahooMessenger().setVisible(true);
+                try {
+                    new YahooMessenger().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(YahooMessenger.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -421,4 +469,5 @@ public class YahooMessenger extends javax.swing.JFrame {
     private static String message;
     private static String lastMessage = null;
     public static ArrayList<String> usersList = new ArrayList<String>();
+    public static final String myVersion = "100";
 }
