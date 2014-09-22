@@ -41,6 +41,7 @@ public class SendFile extends javax.swing.JFrame {
         @Override
         protected Integer doInBackground() throws Exception {
             /* Try to connect to the server on localhost, port 5556 */
+            jLabel3.setText("Sending transfer command");
             YahooMessenger.MultiThreadChatClient.os.println("/send");
             Socket sk = new Socket("188.26.255.139", 5557);
             OutputStream output = sk.getOutputStream();
@@ -48,16 +49,19 @@ public class SendFile extends javax.swing.JFrame {
             OutputStreamWriter outputStream = new OutputStreamWriter(sk.getOutputStream());
             BufferedReader inReader = new BufferedReader(new InputStreamReader(sk.getInputStream()));
             
-            /* Send receiver to the server */
+            /* Send receiver to the server */            
             String receiver = jComboBox1.getSelectedItem().toString();
+            jLabel3.setText("Sending receiver(" + receiver + ") to server");
             outputStream.write(receiver + "\n" );
             outputStream.flush();
             
             /* Send filename to server */
+            jLabel3.setText("Sending filename to server");
             outputStream.write(fileDlg.getSelectedFile().getName() + "\n");
             outputStream.flush();
 
             /* Get reponse from server */
+            jLabel3.setText("Handshaking...");
             String serverStatus = inReader.readLine();
 
             /* If server is ready, send the file */
@@ -79,12 +83,11 @@ public class SendFile extends javax.swing.JFrame {
                     cost = System.currentTimeMillis() - start;
                     if ((cost > 0) && (System.currentTimeMillis() % 2 == 0)) {
                         speed = total / cost;
-                        System.out.println(speed + " KB/s");
+                        jLabel3.setText(speed + " KB/s");
                     }
                     jProgressBar1.setValue((int) ((total * 100) / filesize));
                 }
 
-                System.out.println("Complete!");
                 output.close();
                 file.close();
                 sk.close();
@@ -189,10 +192,11 @@ public class SendFile extends javax.swing.JFrame {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)

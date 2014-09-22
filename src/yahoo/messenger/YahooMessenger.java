@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Parts of code are taken from http://www.ase.md/~aursu/ClientServerThreads.html
+ * All credit for the basic chat function goes to them.
  */
 package yahoo.messenger;
 
@@ -47,12 +46,10 @@ public class YahooMessenger extends javax.swing.JFrame {
             updater.delete();
         }
         File version = new File("version.txt");
-        if (version.exists()) {
-            version.delete();
-        }
+        version.delete();
 
         // Check if update exists
-        URL website = new URL("http://aica.org.ro/images/FTP/version.txt");
+        /*URL website = new URL("http://aica.org.ro/images/FTP/version.txt");
         ReadableByteChannel rbc = Channels.newChannel(website.openStream());
         FileOutputStream fos = new FileOutputStream("version.txt");
         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
@@ -71,15 +68,15 @@ public class YahooMessenger extends javax.swing.JFrame {
 
             System.exit(0);
 
-        }
+        }*/
 
         /* End of Updater Script */
-        
         initComponents();
-        
+
         new chatClient().execute();
-        
+
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent evt) {
                 message = "/quit";
                 System.exit(0);
@@ -469,5 +466,5 @@ public class YahooMessenger extends javax.swing.JFrame {
     private static String message;
     private static String lastMessage = null;
     public static ArrayList<String> usersList = new ArrayList<String>();
-    public static final String myVersion = "100";
+    public static final String myVersion = "101";
 }
