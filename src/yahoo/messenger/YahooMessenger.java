@@ -6,6 +6,8 @@
 package yahoo.messenger;
 
 import static java.awt.event.KeyEvent.VK_ENTER;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
@@ -33,6 +35,12 @@ public class YahooMessenger extends javax.swing.JFrame {
     public YahooMessenger() {
         initComponents();
         new chatClient().execute();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent evt) {
+                message = "/quit";
+                System.exit(0);
+            }
+        });
     }
 
     /**
@@ -61,7 +69,7 @@ public class YahooMessenger extends javax.swing.JFrame {
 
         jMenu3.setText("jMenu3");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Yahoo! Messenger RELOADED");
         setResizable(false);
 
@@ -142,9 +150,9 @@ public class YahooMessenger extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(sendButton, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
@@ -227,14 +235,6 @@ public class YahooMessenger extends javax.swing.JFrame {
             // The default host.
             String host = "188.26.255.139";
 
-            if (args.length < 2) {
-                chatBox.append("Usage: java MultiThreadChatClient <host> <portNumber>\n"
-                        + "Now using host=" + host + ", portNumber=" + portNumber + "\n");
-            } else {
-                host = args[0];
-                portNumber = Integer.valueOf(args[1]).intValue();
-            }
-
             /*
              * Open a socket on a given host and port. Open input and output streams.
              */
@@ -291,18 +291,18 @@ public class YahooMessenger extends javax.swing.JFrame {
             String responseLine, users;
             try {
                 while ((responseLine = is.readLine()) != null) {
-                    
+
                     /* Users online */
                     if (responseLine.startsWith("/users")) {
                         onlineUsers.setText("");
                         usersList.clear();
-                        while(!(users = is.readLine()).equals("/usersEnd")){
-                            onlineUsers.append(users.substring(1)+"\n");
+                        while (!(users = is.readLine()).equals("/usersEnd")) {
+                            onlineUsers.append(users.substring(1) + "\n");
                             usersList.add(users.substring(1));
                         }
                         continue;
                     }
-                    
+
                     /* File transfer protocol */
                     if (responseLine.startsWith("/send")) {
                         long sstart, scost, sspeed, stotal;
@@ -347,9 +347,10 @@ public class YahooMessenger extends javax.swing.JFrame {
                         }
                         continue;
                     }
-                    
-                    /* Normal chat messages */ 
+
+                    /* Normal chat messages */
                     chatBox.append(responseLine + "\n");
+                    chatBox.setCaretPosition(chatBox.getDocument().getLength());
                     if (responseLine.indexOf("*** Bye") != -1) {
                         break;
                     }
