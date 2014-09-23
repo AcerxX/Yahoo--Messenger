@@ -361,6 +361,23 @@ public class YahooMessenger extends javax.swing.JFrame {
 
                         /* Read the filename */
                         String filename = inReader.readLine();
+                        filenameString = filename;
+                        if(filenameString.length() > 14){
+                            filenameString = filenameString.substring(0, 10) + "...";                                     
+                        }
+                        
+                        /* Waiting for accept */
+                        FileReceiver.main(new String[0]);
+                        while(true){
+                            if (accepted || declined)
+                                break;
+                        }
+                        
+                        if(declined){
+                            outReader.write("ABORT\n");
+                            outReader.flush();
+                            continue;
+                        }
 
                         if (!filename.equals("")) {
 
@@ -466,4 +483,7 @@ public class YahooMessenger extends javax.swing.JFrame {
     public static ArrayList<String> usersList = new ArrayList<String>();
     public static final String myVersion = "101";
     public static final boolean betaVersion = true;
+    public static boolean accepted = false;
+    public static boolean declined = false;
+    public static String receiver, filenameString;
 }
