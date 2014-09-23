@@ -374,7 +374,7 @@ public class YahooMessenger extends javax.swing.JFrame {
                         }
                         
                         if(declined){
-                            outReader.write("ABORT\n");
+                            outReader.write("ABORD\n");
                             outReader.flush();
                             continue;
                         }

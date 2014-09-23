@@ -91,6 +91,9 @@ public class SendFile extends javax.swing.JFrame {
                 output.close();
                 file.close();
                 sk.close();
+            }else {
+                output.close();
+                sk.close();
             }
 
             return 666;
