@@ -88,6 +88,7 @@ public class SendFile extends javax.swing.JFrame {
                     jProgressBar1.setValue((int) ((total * 100) / filesize));
                 }
 
+                jLabel3.setText("Complete!");
                 output.close();
                 file.close();
                 sk.close();
@@ -101,8 +102,7 @@ public class SendFile extends javax.swing.JFrame {
         }
 
         @Override
-        protected void done() {
-            jLabel3.setText("Complete!");
+        protected void done() {            
         }
     }
 
@@ -213,7 +213,6 @@ public class SendFile extends javax.swing.JFrame {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

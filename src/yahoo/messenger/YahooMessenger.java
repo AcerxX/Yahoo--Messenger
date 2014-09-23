@@ -37,6 +37,7 @@ public class YahooMessenger extends javax.swing.JFrame {
 
     /**
      * Creates new form YahooMessenger
+     *
      * @throws java.net.MalformedURLException
      * @throws java.io.IOException
      */
@@ -51,28 +52,27 @@ public class YahooMessenger extends javax.swing.JFrame {
         version.delete();
 
         // Check if update exists
-        if (betaVersion == false) {
-            URL website = new URL("http://aica.org.ro/images/FTP/version.txt");
-            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-            FileOutputStream fos = new FileOutputStream("version.txt");
-            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+        URL website = new URL("http://aica.org.ro/images/FTP/version.txt");
+        ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+        FileOutputStream fos = new FileOutputStream("version.txt");
+        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 
-            BufferedReader x = new BufferedReader(new FileReader("version.txt"));
-            String latestVersion = x.readLine();
-            if (!myVersion.equals(latestVersion)) {
-                // Get updater from server
-                URL srv = new URL("http://aica.org.ro/images/FTP/Updater.jpg");
-                ReadableByteChannel rbc2 = Channels.newChannel(srv.openStream());
-                FileOutputStream fos2 = new FileOutputStream("updater.jar");
-                fos2.getChannel().transferFrom(rbc2, 0, Long.MAX_VALUE);
+        BufferedReader x = new BufferedReader(new FileReader("version.txt"));
+        String latestVersion = x.readLine();
+        if (myVersion < Integer.parseInt(latestVersion)) {
+            // Get updater from server
+            URL srv = new URL("http://aica.org.ro/images/FTP/Updater.jpg");
+            ReadableByteChannel rbc2 = Channels.newChannel(srv.openStream());
+            FileOutputStream fos2 = new FileOutputStream("updater.jar");
+            fos2.getChannel().transferFrom(rbc2, 0, Long.MAX_VALUE);
 
-                // Start the updater
-                Runtime.getRuntime().exec("cmd /c java -jar updater.jar");
+            // Start the updater
+            Runtime.getRuntime().exec("cmd /c java -jar updater.jar");
 
-                System.exit(0);
+            System.exit(0);
 
-            }
         }
+
 
         /* End of Updater Script */
         initComponents();
@@ -115,7 +115,7 @@ public class YahooMessenger extends javax.swing.JFrame {
         jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Yahooo Messenger v1.0");
+        setTitle("Yahooo Messenger v1.1");
         setResizable(false);
 
         chatBox.setColumns(20);
@@ -350,7 +350,6 @@ public class YahooMessenger extends javax.swing.JFrame {
 
                     /* File transfer protocol */
                     if (responseLine.startsWith("/send")) {
-                        long sstart, scost, sspeed, stotal;
                         accepted = false;
                         declined = false;
 
@@ -364,19 +363,20 @@ public class YahooMessenger extends javax.swing.JFrame {
                         /* Read the filename */
                         String filename = inReader.readLine();
                         filenameString = filename;
-                        if(filenameString.length() > 14){
-                            filenameString = filenameString.substring(0, 10) + "...";                                     
+                        if (filenameString.length() > 14) {
+                            filenameString = filenameString.substring(0, 10) + "...";
                         }
-                        
+
                         /* Waiting for accept */
                         FileReceiver.main(new String[0]);
-                        while(true){
-                            if (accepted || declined)
+                        while (true) {
+                            if (accepted || declined) {
                                 break;
+                            }
                             System.out.print("");
                         }
-                        
-                        if(declined){
+
+                        if (declined) {
                             outReader.write("ABORD\n");
                             outReader.flush();
                             continue;
@@ -398,7 +398,7 @@ public class YahooMessenger extends javax.swing.JFrame {
 
                         while ((bytesReceived = input.read(buffer)) > 0) {
                             /* Write to the file */
-                            wr.write(buffer, 0, bytesReceived);                            
+                            wr.write(buffer, 0, bytesReceived);
                         }
                         continue;
                     }
@@ -482,8 +482,7 @@ public class YahooMessenger extends javax.swing.JFrame {
     private static String message;
     private static String lastMessage = null;
     public static ArrayList<String> usersList = new ArrayList<String>();
-    public static final String myVersion = "101";
-    public static final boolean betaVersion = true;
+    public static final int myVersion = 110;
     public static boolean accepted = false;
     public static boolean declined = false;
     public static String receiver, filenameString;
