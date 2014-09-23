@@ -351,6 +351,8 @@ public class YahooMessenger extends javax.swing.JFrame {
                     /* File transfer protocol */
                     if (responseLine.startsWith("/send")) {
                         long sstart, scost, sspeed, stotal;
+                        accepted = false;
+                        declined = false;
 
                         Socket sk = new Socket("188.26.255.139", 5557);
 
@@ -371,6 +373,7 @@ public class YahooMessenger extends javax.swing.JFrame {
                         while(true){
                             if (accepted || declined)
                                 break;
+                            System.out.print("");
                         }
                         
                         if(declined){
@@ -380,8 +383,6 @@ public class YahooMessenger extends javax.swing.JFrame {
                         }
 
                         if (!filename.equals("")) {
-
-                            /* Reply back to client with READY status */
                             outReader.write("READY\n");
                             outReader.flush();
                         }

@@ -92,6 +92,7 @@ public class SendFile extends javax.swing.JFrame {
                 file.close();
                 sk.close();
             }else {
+                jLabel3.setText("Transfer declined");
                 output.close();
                 sk.close();
             }
@@ -127,6 +128,7 @@ public class SendFile extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Send File");
         setResizable(false);
+        setType(java.awt.Window.Type.POPUP);
 
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

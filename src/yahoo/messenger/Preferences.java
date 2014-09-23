@@ -37,6 +37,7 @@ public class Preferences extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        setType(java.awt.Window.Type.POPUP);
 
         jButton1.setText("Save");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

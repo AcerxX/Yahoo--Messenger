@@ -35,6 +35,7 @@ public class FileReceiver extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        setType(java.awt.Window.Type.POPUP);
 
         jLabel1.setText("<NAME> wants to send you <FILENAME>.");
 
@@ -104,7 +105,7 @@ public class FileReceiver extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
