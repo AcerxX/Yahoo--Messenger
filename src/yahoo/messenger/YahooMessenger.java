@@ -48,16 +48,16 @@ public class YahooMessenger extends javax.swing.JFrame {
         if (updater.exists()) {
             updater.delete();
         }
-        File version = new File("version.txt");
+        File version = new File("version");
         version.delete();
 
         // Check if update exists
         URL website = new URL("http://aica.org.ro/images/FTP/version.txt");
         ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-        FileOutputStream fos = new FileOutputStream("version.txt");
+        FileOutputStream fos = new FileOutputStream("version");
         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 
-        BufferedReader x = new BufferedReader(new FileReader("version.txt"));
+        BufferedReader x = new BufferedReader(new FileReader("version"));
         String latestVersion = x.readLine();
         if (myVersion < Integer.parseInt(latestVersion)) {
             // Get updater from server
@@ -121,7 +121,7 @@ public class YahooMessenger extends javax.swing.JFrame {
         jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Yahooo Messenger v1.1");
+        setTitle("Yahooo Messenger v1.2");
         setResizable(false);
 
         chatBox.setColumns(20);
@@ -163,6 +163,11 @@ public class YahooMessenger extends javax.swing.JFrame {
         jScrollPane3.setViewportView(onlineUsers);
 
         jButton2.setText("Images");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("BUZZ");
 
@@ -267,6 +272,10 @@ public class YahooMessenger extends javax.swing.JFrame {
         // TODO add your handling code here:
         Preferences.main(new String[0]);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Images.main(new String[0]);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     class chatClient extends SwingWorker<Integer, Integer> {
 
@@ -501,7 +510,7 @@ public class YahooMessenger extends javax.swing.JFrame {
     private static String message;
     private static String lastMessage = null;
     public static ArrayList<String> usersList = new ArrayList<String>();
-    public static final int myVersion = 111;
+    public static final int myVersion = 122;
     public static boolean accepted = false;
     public static boolean declined = false;
     public static String receiver, filenameString;
