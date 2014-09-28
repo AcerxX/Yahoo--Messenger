@@ -26,9 +26,10 @@ public class Images extends javax.swing.JFrame {
         jTextPane1.setContentType("text/html");
         StringBuilder buildSomething = new StringBuilder();
         buildSomething.append("<html>");
-        buildSomething.append("<img src=\"").append(imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\"");
+        buildSomething.append("<img src=\"").append(imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
         buildSomething.append("</html>");
         jTextPane1.setText(buildSomething.toString());
+        jTextField1.setText(imgList.get(imgIndicator));
         jButton1.setEnabled(false);
         jButton3.setEnabled(false);
     }
@@ -48,6 +49,8 @@ public class Images extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Images");
@@ -85,6 +88,16 @@ public class Images extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Link:");
+
+        jTextField1.setEditable(false);
+        jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,7 +113,13 @@ public class Images extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(90, 90, 90)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -108,7 +127,11 @@ public class Images extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -131,9 +154,10 @@ public class Images extends javax.swing.JFrame {
         }
         StringBuilder buildSomething = new StringBuilder();
         buildSomething.append("<html>");
-        buildSomething.append("<img src=\"").append(imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\"");
+        buildSomething.append("<img src=\"").append(imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
         buildSomething.append("</html>");
         jTextPane1.setText(buildSomething.toString());
+        jTextField1.setText(imgList.get(imgIndicator));
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -146,9 +170,10 @@ public class Images extends javax.swing.JFrame {
         }
         StringBuilder buildSomething = new StringBuilder();
         buildSomething.append("<html>");
-        buildSomething.append("<img src=\"").append(imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\"");
+        buildSomething.append("<img src=\"").append(imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
         buildSomething.append("</html>");
         jTextPane1.setText(buildSomething.toString());
+        jTextField1.setText(imgList.get(imgIndicator));
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -160,9 +185,10 @@ public class Images extends javax.swing.JFrame {
         
         StringBuilder buildSomething = new StringBuilder();
         buildSomething.append("<html>");
-        buildSomething.append("<img src=\"").append(imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\"");
+        buildSomething.append("<img src=\"").append(imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
         buildSomething.append("</html>");
         jTextPane1.setText(buildSomething.toString());
+        jTextField1.setText(imgList.get(imgIndicator));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -174,10 +200,15 @@ public class Images extends javax.swing.JFrame {
         
         StringBuilder buildSomething = new StringBuilder();
         buildSomething.append("<html>");
-        buildSomething.append("<img src=\"").append(imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\"");
+        buildSomething.append("<img src=\"").append(imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
         buildSomething.append("</html>");
         jTextPane1.setText(buildSomething.toString());
+        jTextField1.setText(imgList.get(imgIndicator));
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,7 +250,9 @@ public class Images extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
     private int imgIndicator = 0;

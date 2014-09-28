@@ -430,6 +430,18 @@ public class YahooMessenger extends javax.swing.JFrame {
                     /* Normal chat messages */
                     content.append(responseLine + "<br>");
                     jTextPane1.setText(content.toString());
+                    if((responseLine.endsWith(".jpg"))) {
+                        int x = responseLine.indexOf("http");
+                        int y = responseLine.indexOf(".jpg");
+                        content.append("<img src=\"").append(responseLine.substring(x, y+4)).append("\" height=\"630\" width=\"510\"><br>");
+                        jTextPane1.setText(content.toString());
+                    }
+                    if((responseLine.endsWith(".gif"))) {
+                        int x = responseLine.indexOf("http");
+                        int y = responseLine.indexOf(".gif");
+                        content.append("<img src=\"").append(responseLine.substring(x, y+4)).append("\" height=\"630\" width=\"510\"><br>");
+                        jTextPane1.setText(content.toString());
+                    }
                     if (responseLine.indexOf("*** Bye") != -1) {
                         break;
                     }
@@ -509,7 +521,7 @@ public class YahooMessenger extends javax.swing.JFrame {
     private static String message;
     private static String lastMessage = null;
     public static ArrayList<String> usersList = new ArrayList<String>();
-    public static final int myVersion = 123;
+    public static final int myVersion = 124;
     public static boolean accepted = false;
     public static boolean declined = false;
     public static String receiver, filenameString;
