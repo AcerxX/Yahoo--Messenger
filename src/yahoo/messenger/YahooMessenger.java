@@ -79,8 +79,7 @@ public class YahooMessenger extends javax.swing.JFrame {
         
         new chatClient().execute();
         jTextPane1.setContentType("text/html");
-        content.append("<html><body>");
-        content.append("BETA CHATBOX <br>");
+        content.append("<html><body><font size=\"3\" face=\"Comic Sans MS\">");
         
         /* Sned /quit to server when exiting */
         addWindowListener(new WindowAdapter() {
@@ -164,7 +163,7 @@ public class YahooMessenger extends javax.swing.JFrame {
         jButton3.setText("BUZZ");
 
         jTextPane1.setEditable(false);
-        jTextPane1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        jTextPane1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jScrollPane4.setViewportView(jTextPane1);
 
         jMenu1.setText("File");
