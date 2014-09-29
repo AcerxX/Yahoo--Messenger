@@ -7,10 +7,12 @@ package yahoo.messenger;
 import static java.awt.event.KeyEvent.VK_ENTER;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,7 +29,10 @@ import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.SwingWorker;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  *
@@ -75,13 +80,31 @@ public class YahooMessenger extends javax.swing.JFrame {
 
 
         /* End of Updater Script */
-        initComponents(); 
-        
+        /* Load saved preferences if there are any */
+        File prefFile = new File(System.getProperty("user.home") + "/Documents/settingsYM.txt");
+        if (prefFile.exists()) {
+            BufferedReader pref = new BufferedReader(new FileReader(prefFile));
+            nickname = pref.readLine();
+            directory = pref.readLine();
+
+            if ((nickname != null) && (!"".equals(nickname))) {
+                nicknameFound = true;
+            }
+
+            if (("".equals(directory)) || (directory == null)) {
+                directory = "C://tmp/";
+            }
+        }
+
+        /* Initialize the client */
+        initComponents();
         new chatClient().execute();
+
+        /* Set the chatbox to listen HTML format */
         jTextPane1.setContentType("text/html");
         content.append("<html><body><font size=\"3\" face=\"Comic Sans MS\">");
-        
-        /* Sned /quit to server when exiting */
+
+        /* Set to send /quit to server when exiting */
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent evt) {
@@ -89,6 +112,7 @@ public class YahooMessenger extends javax.swing.JFrame {
                 System.exit(0);
             }
         });
+
     }
 
     /**
@@ -120,8 +144,7 @@ public class YahooMessenger extends javax.swing.JFrame {
         jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Yahooo Messenger v1.2");
-        setResizable(false);
+        setTitle("Yahooo Messenger v1.3");
 
         messageBox.setColumns(20);
         messageBox.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
@@ -154,6 +177,7 @@ public class YahooMessenger extends javax.swing.JFrame {
         jScrollPane3.setViewportView(onlineUsers);
 
         jButton2.setText("Images");
+        jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -161,6 +185,7 @@ public class YahooMessenger extends javax.swing.JFrame {
         });
 
         jButton3.setText("BUZZ");
+        jButton3.setEnabled(false);
 
         jTextPane1.setEditable(false);
         jTextPane1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
@@ -208,13 +233,13 @@ public class YahooMessenger extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sendButton, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 803, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(sendButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane3))))
                 .addContainerGap())
         );
@@ -222,19 +247,19 @@ public class YahooMessenger extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
                     .addComponent(jScrollPane4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(sendButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -325,6 +350,13 @@ public class YahooMessenger extends javax.swing.JFrame {
                 try {
                     /* Create a thread to read from the server. */
                     new Thread(new MultiThreadChatClient()).start();
+                    
+                    /* Send my name to the server if it is saved */
+                    if (nicknameFound) {
+                        message = nickname;
+                    }
+                    
+                    /* Write to server */
                     while (!closed) {
                         inputLine = message;
                         System.out.print("");
@@ -412,7 +444,7 @@ public class YahooMessenger extends javax.swing.JFrame {
                         }
 
                         /* Create a new file in the tmp directory using the filename */
-                        FileOutputStream wr = new FileOutputStream(new File("C://tmp/" + filename));
+                        FileOutputStream wr = new FileOutputStream(new File(directory + filename));
 
                         /* Get the buffer length from the server */
                         int len = Integer.parseInt(inReader.readLine());
@@ -428,26 +460,52 @@ public class YahooMessenger extends javax.swing.JFrame {
                     }
 
                     /* Normal chat messages */
-                    content.append(responseLine + "<br>");
+                    content.append(responseLine).append("<br>");
                     jTextPane1.setText(content.toString());
                     jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
-                    if((responseLine.endsWith(".jpg"))) {
+                    /*InputStream inDing = new FileInputStream("sound.wav");
+                    AudioStream asDing = new AudioStream(inDing);
+                    AudioPlayer.player.start(asDing);*/
+
+                    /* Check if the message contains a link and parse it */
+                    if ((responseLine.contains(".jpg"))) {
                         int x = responseLine.indexOf("http");
                         int y = responseLine.indexOf(".jpg");
-                        content.append("<img src=\"").append(responseLine.substring(x, y+4)).append("\" height=\"630\" width=\"510\"><br>");
+                        if (responseLine.contains("https")) {
+                            content.append("<img src=\"").append("http").append(responseLine.substring(x + 4, y + 4)).append("\"<br>");
+                        } else {
+                            content.append("<img src=\"").append(responseLine.substring(x, y + 4)).append("\"<br>");
+                        }
                         jTextPane1.setText(content.toString());
                         jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                     }
-                    if((responseLine.endsWith(".gif"))) {
+                    if ((responseLine.contains(".png"))) {
+                        int x = responseLine.indexOf("http");
+                        int y = responseLine.indexOf(".png");
+                        if (responseLine.contains("https")) {
+                            content.append("<img src=\"").append("http").append(responseLine.substring(x + 4, y + 4)).append("\"<br>");
+                        } else {
+                            content.append("<img src=\"").append(responseLine.substring(x, y + 4)).append("\"<br>");
+                        }
+                        jTextPane1.setText(content.toString());
+                        jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
+                    }
+                    if ((responseLine.endsWith(".gif"))) {
                         int x = responseLine.indexOf("http");
                         int y = responseLine.indexOf(".gif");
-                        content.append("<img src=\"").append(responseLine.substring(x, y+4)).append("\" height=\"630\" width=\"510\"><br>");
+                        content.append("<img src=\"").append(responseLine.substring(x, y + 4)).append("\"<br>");
                         jTextPane1.setText(content.toString());
                         jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                     }
-                    if(responseLine.contains("http://9gag.com/gag/")){
+                    if (responseLine.contains("http://9gag.com/gag/")) {
                         int x = responseLine.indexOf("http://9gag.com/gag/");
-                        content.append("<img src=\"http://images-cdn.9gag.com/photo/").append(responseLine.substring(x+20, x+27)).append("_700b.jpg").append("\" height=\"630\" width=\"510\"><br>");
+
+                        URL url = new URL("http://images-cdn.9gag.com/photo/" + responseLine.substring(x + 20, x + 27) + "_700b.jpg");
+                        BufferedImage img = ImageIO.read(url);
+                        int height, width;
+                        height = img.getHeight();
+                        width = img.getWidth();
+                        content.append("<img src=\"http://images-cdn.9gag.com/photo/").append(responseLine.substring(x + 20, x + 27)).append("_700b.jpg").append("\" height=\"").append(height).append("\" width=\"").append(width).append("\"<br>");
                         jTextPane1.setText(content.toString());
                         jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                     }
@@ -458,7 +516,7 @@ public class YahooMessenger extends javax.swing.JFrame {
                 closed = true;
             } catch (IOException e) {
                 content.append("IOException:  " + e);
-                jTextPane1.setText(content.toString());                
+                jTextPane1.setText(content.toString());
                 e.printStackTrace();
             }
         }
@@ -530,10 +588,12 @@ public class YahooMessenger extends javax.swing.JFrame {
     private static String message;
     private static String lastMessage = null;
     public static ArrayList<String> usersList = new ArrayList<String>();
-    public static final int myVersion = 125;
+    public static final int myVersion = 130;
     public static boolean accepted = false;
     public static boolean declined = false;
-    public static String receiver, filenameString;
+    public static String receiver, filenameString, directory;
     public static StringBuilder content = new StringBuilder();
     private static String oldString = null;
+    public static String nickname;
+    public static boolean nicknameFound = false;
 }
