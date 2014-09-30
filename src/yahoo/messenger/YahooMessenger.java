@@ -86,6 +86,13 @@ public class YahooMessenger extends javax.swing.JFrame {
             BufferedReader pref = new BufferedReader(new FileReader(prefFile));
             nickname = pref.readLine();
             directory = pref.readLine();
+            String bool = pref.readLine();
+            
+            if (bool.equals("true")) {
+                muted = true;
+            } else {
+                muted = false;
+            }
 
             if ((nickname != null) && (!"".equals(nickname))) {
                 nicknameFound = true;
@@ -350,12 +357,12 @@ public class YahooMessenger extends javax.swing.JFrame {
                 try {
                     /* Create a thread to read from the server. */
                     new Thread(new MultiThreadChatClient()).start();
-                    
+
                     /* Send my name to the server if it is saved */
                     if (nicknameFound) {
                         message = nickname;
                     }
-                    
+
                     /* Write to server */
                     while (!closed) {
                         inputLine = message;
@@ -463,9 +470,13 @@ public class YahooMessenger extends javax.swing.JFrame {
                     content.append(responseLine).append("<br>");
                     jTextPane1.setText(content.toString());
                     jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
-                    InputStream inDing = new FileInputStream(System.getenv("SystemRoot") + "/Media/Windows Pop-up Blocked.wav");
-                    AudioStream asDing = new AudioStream(inDing);
-                    AudioPlayer.player.start(asDing);
+
+                    /* Pplaying a sound when a normal chat message is received */
+                    if (!muted) {
+                        InputStream inDing = new FileInputStream(System.getenv("SystemRoot") + "/Media/Windows Pop-up Blocked.wav");
+                        AudioStream asDing = new AudioStream(inDing);
+                        AudioPlayer.player.start(asDing);
+                    }
 
                     /* Check if the message contains a link and parse it */
                     if ((responseLine.contains(".jpg"))) {
@@ -588,7 +599,7 @@ public class YahooMessenger extends javax.swing.JFrame {
     private static String message;
     private static String lastMessage = null;
     public static ArrayList<String> usersList = new ArrayList<String>();
-    public static final int myVersion = 130;
+    public static final int myVersion = 131;
     public static boolean accepted = false;
     public static boolean declined = false;
     public static String receiver, filenameString, directory;
@@ -596,4 +607,5 @@ public class YahooMessenger extends javax.swing.JFrame {
     private static String oldString = null;
     public static String nickname;
     public static boolean nicknameFound = false;
+    public static boolean muted = false;
 }
