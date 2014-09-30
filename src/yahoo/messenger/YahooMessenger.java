@@ -463,9 +463,9 @@ public class YahooMessenger extends javax.swing.JFrame {
                     content.append(responseLine).append("<br>");
                     jTextPane1.setText(content.toString());
                     jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
-                    /*InputStream inDing = new FileInputStream("sound.wav");
+                    InputStream inDing = new FileInputStream(System.getenv("SystemRoot") + "/Media/Windows Pop-up Blocked.wav");
                     AudioStream asDing = new AudioStream(inDing);
-                    AudioPlayer.player.start(asDing);*/
+                    AudioPlayer.player.start(asDing);
 
                     /* Check if the message contains a link and parse it */
                     if ((responseLine.contains(".jpg"))) {
