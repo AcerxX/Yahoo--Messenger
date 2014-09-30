@@ -27,7 +27,6 @@ import java.net.UnknownHostException;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -152,7 +151,7 @@ public class YahooMessenger extends javax.swing.JFrame {
         jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Yahooo Messenger v1.3");
+        setTitle("Yahooo Messenger v1.4");
 
         messageBox.setColumns(20);
         messageBox.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
@@ -643,18 +642,25 @@ public class YahooMessenger extends javax.swing.JFrame {
     private static javax.swing.JTextArea onlineUsers;
     private javax.swing.JButton sendButton;
     // End of variables declaration//GEN-END:variables
-    private static String message;
-    private static String lastMessage = null;
+    /* General variables */
+    private static final int myVersion = 140;
     public static ArrayList<String> usersList = new ArrayList<String>();
-    public static final int myVersion = 132;
+    
+    /* Chat variables */
+    public static String message;
+    private static String lastMessage = null;    
+    private static StringBuilder content = new StringBuilder();
+    private static String nickname;
+    private static boolean nicknameFound = false;
+    
+    /* File transfer variables */
     public static boolean accepted = false;
     public static boolean declined = false;
     public static String receiver, filenameString, directory;
-    public static StringBuilder content = new StringBuilder();
-    private static String oldString = null;
-    public static String nickname;
-    public static boolean nicknameFound = false;
+    
+    /* Sound system variables */
     public static boolean muted = false;
+    
+    /* Images system variables */
     public static ArrayList<String> imgList = new ArrayList<String>();
-    private static String link;
 }
