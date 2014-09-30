@@ -27,6 +27,7 @@ import java.net.UnknownHostException;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -184,7 +185,6 @@ public class YahooMessenger extends javax.swing.JFrame {
         jScrollPane3.setViewportView(onlineUsers);
 
         jButton2.setText("Images");
-        jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -482,29 +482,58 @@ public class YahooMessenger extends javax.swing.JFrame {
                     if ((responseLine.contains(".jpg"))) {
                         int x = responseLine.indexOf("http");
                         int y = responseLine.indexOf(".jpg");
+                        
+                        URL url = new URL(responseLine.substring(x,y+4));
+                        imgList.add(url.toString());
+                        
+                        BufferedImage img = ImageIO.read(url);
+                        int height, width;
+                        height = img.getHeight();
+                        width = img.getWidth();
+                        
                         if (responseLine.contains("https")) {
-                            content.append("<img src=\"").append("http").append(responseLine.substring(x + 4, y + 4)).append("\"<br>");
+                            content.append("<img src=\"").append("http").append(responseLine.substring(x + 4, y + 4)).append("\" height=\"").append(height).append("\" width=\"").append(width).append("\"<br>");
                         } else {
-                            content.append("<img src=\"").append(responseLine.substring(x, y + 4)).append("\"<br>");
+                            content.append("<img src=\"").append(responseLine.substring(x, y + 4)).append("\" height=\"").append(height).append("\" width=\"").append(width).append("\"<br>");
                         }
+                        
                         jTextPane1.setText(content.toString());
                         jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                     }
                     if ((responseLine.contains(".png"))) {
                         int x = responseLine.indexOf("http");
                         int y = responseLine.indexOf(".png");
+                        
+                        URL url = new URL(responseLine.substring(x,y+4));
+                        imgList.add(url.toString());
+                        
+                        BufferedImage img = ImageIO.read(url);
+                        int height, width;
+                        height = img.getHeight();
+                        width = img.getWidth();
+                        
                         if (responseLine.contains("https")) {
-                            content.append("<img src=\"").append("http").append(responseLine.substring(x + 4, y + 4)).append("\"<br>");
+                            content.append("<img src=\"").append("http").append(responseLine.substring(x + 4, y + 4)).append("\" height=\"").append(height).append("\" width=\"").append(width).append("\"<br>");
                         } else {
-                            content.append("<img src=\"").append(responseLine.substring(x, y + 4)).append("\"<br>");
+                            content.append("<img src=\"").append(responseLine.substring(x, y + 4)).append("\" height=\"").append(height).append("\" width=\"").append(width).append("\"<br>");
                         }
+                        
                         jTextPane1.setText(content.toString());
                         jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                     }
                     if ((responseLine.endsWith(".gif"))) {
                         int x = responseLine.indexOf("http");
                         int y = responseLine.indexOf(".gif");
-                        content.append("<img src=\"").append(responseLine.substring(x, y + 4)).append("\"<br>");
+                        
+                        URL url = new URL(responseLine.substring(x,y+4));
+                        imgList.add(url.toString());
+                        
+                        BufferedImage img = ImageIO.read(url);
+                        int height, width;
+                        height = img.getHeight();
+                        width = img.getWidth();
+                        
+                        content.append("<img src=\"").append(responseLine.substring(x, y + 4)).append("\" height=\"").append(height).append("\" width=\"").append(width).append("\"<br>");
                         jTextPane1.setText(content.toString());
                         jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                     }
@@ -512,10 +541,13 @@ public class YahooMessenger extends javax.swing.JFrame {
                         int x = responseLine.indexOf("http://9gag.com/gag/");
 
                         URL url = new URL("http://images-cdn.9gag.com/photo/" + responseLine.substring(x + 20, x + 27) + "_700b.jpg");
+                        imgList.add(url.toString());
+                        
                         BufferedImage img = ImageIO.read(url);
                         int height, width;
                         height = img.getHeight();
                         width = img.getWidth();
+                        
                         content.append("<img src=\"http://images-cdn.9gag.com/photo/").append(responseLine.substring(x + 20, x + 27)).append("_700b.jpg").append("\" height=\"").append(height).append("\" width=\"").append(width).append("\"<br>");
                         jTextPane1.setText(content.toString());
                         jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
@@ -608,4 +640,6 @@ public class YahooMessenger extends javax.swing.JFrame {
     public static String nickname;
     public static boolean nicknameFound = false;
     public static boolean muted = false;
+    public static ArrayList<String> imgList = new ArrayList<String>();
+    private static String link;
 }
