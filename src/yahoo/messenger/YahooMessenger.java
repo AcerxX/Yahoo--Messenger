@@ -192,7 +192,11 @@ public class YahooMessenger extends javax.swing.JFrame {
         });
 
         jButton3.setText("BUZZ");
-        jButton3.setEnabled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTextPane1.setEditable(false);
         jTextPane1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
@@ -304,6 +308,10 @@ public class YahooMessenger extends javax.swing.JFrame {
         Images.main(new String[0]);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        message = "/BUZZ";
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     class chatClient extends SwingWorker<Integer, Integer> {
 
         @Override
@@ -400,6 +408,13 @@ public class YahooMessenger extends javax.swing.JFrame {
             try {
                 while ((responseLine = is.readLine()) != null) {
 
+                    /* BUZZ */
+                    if (responseLine.contains("/BUZZ")) {
+                        InputStream inDing = new FileInputStream(System.getenv("SystemRoot") + "/Media/Windows Logon.wav");
+                        AudioStream asDing = new AudioStream(inDing);
+                        AudioPlayer.player.start(asDing);
+                    }
+                    
                     /* Users online */
                     if (responseLine.startsWith("/users")) {
                         onlineUsers.setText("");
@@ -631,7 +646,7 @@ public class YahooMessenger extends javax.swing.JFrame {
     private static String message;
     private static String lastMessage = null;
     public static ArrayList<String> usersList = new ArrayList<String>();
-    public static final int myVersion = 131;
+    public static final int myVersion = 132;
     public static boolean accepted = false;
     public static boolean declined = false;
     public static String receiver, filenameString, directory;
