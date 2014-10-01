@@ -481,6 +481,11 @@ public class YahooMessenger extends javax.swing.JFrame {
                     }
 
                     /* Normal chat messages */
+                    /* Check if message contains a link and display it as one */
+                    if(responseLine.contains("http") || responseLine.contains("https")) {
+                        int x = responseLine.indexOf("http");
+                        
+                    }
                     content.append(responseLine).append("<br>");
                     jTextPane1.setText(content.toString());
                     jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
