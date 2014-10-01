@@ -87,7 +87,7 @@ public class YahooMessenger extends javax.swing.JFrame {
             nickname = pref.readLine();
             directory = pref.readLine();
             String bool = pref.readLine();
-            
+
             if (bool.equals("true")) {
                 muted = true;
             } else {
@@ -184,6 +184,7 @@ public class YahooMessenger extends javax.swing.JFrame {
         jScrollPane3.setViewportView(onlineUsers);
 
         jButton2.setText("Images");
+        jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -290,6 +291,7 @@ public class YahooMessenger extends javax.swing.JFrame {
     }//GEN-LAST:event_messageBoxKeyPressed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        message = "/quit";
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -413,7 +415,7 @@ public class YahooMessenger extends javax.swing.JFrame {
                         AudioStream asDing = new AudioStream(inDing);
                         AudioPlayer.player.start(asDing);
                     }
-                    
+
                     /* Users online */
                     if (responseLine.startsWith("/users")) {
                         onlineUsers.setText("");
@@ -481,14 +483,10 @@ public class YahooMessenger extends javax.swing.JFrame {
                     }
 
                     /* Normal chat messages */
-                    /* Check if message contains a link and display it as one */
-                    if(responseLine.contains("http") || responseLine.contains("https")) {
-                        int x = responseLine.indexOf("http");
-                        
-                    }
                     content.append(responseLine).append("<br>");
                     jTextPane1.setText(content.toString());
                     jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
+
 
                     /* Pplaying a sound when a normal chat message is received */
                     if (!muted) {
@@ -498,75 +496,86 @@ public class YahooMessenger extends javax.swing.JFrame {
                     }
 
                     /* Check if the message contains a link and parse it */
+                    /* JPG AND FACEBOOK(50%) SUPPORT */
                     if ((responseLine.contains(".jpg"))) {
                         int x = responseLine.indexOf("http");
                         int y = responseLine.indexOf(".jpg");
-                        
-                        URL url = new URL(responseLine.substring(x,y+4));
+
+                        URL url = new URL(responseLine.substring(x, y + 4));
                         imgList.add(url.toString());
-                        
+                        jButton2.setEnabled(true);
+
                         BufferedImage img = ImageIO.read(url);
                         int height, width;
                         height = img.getHeight();
                         width = img.getWidth();
-                        
+
                         if (responseLine.contains("https")) {
                             content.append("<img src=\"").append("http").append(responseLine.substring(x + 4, y + 4)).append("\" height=\"").append(height).append("\" width=\"").append(width).append("\"<br>");
                         } else {
                             content.append("<img src=\"").append(responseLine.substring(x, y + 4)).append("\" height=\"").append(height).append("\" width=\"").append(width).append("\"<br>");
                         }
-                        
+
                         jTextPane1.setText(content.toString());
                         jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                     }
+                    
+                    /* PNG SUPPORT */
                     if ((responseLine.contains(".png"))) {
                         int x = responseLine.indexOf("http");
                         int y = responseLine.indexOf(".png");
-                        
-                        URL url = new URL(responseLine.substring(x,y+4));
+
+                        URL url = new URL(responseLine.substring(x, y + 4));
                         imgList.add(url.toString());
-                        
+                        jButton2.setEnabled(true);
+
                         BufferedImage img = ImageIO.read(url);
                         int height, width;
                         height = img.getHeight();
                         width = img.getWidth();
-                        
+
                         if (responseLine.contains("https")) {
                             content.append("<img src=\"").append("http").append(responseLine.substring(x + 4, y + 4)).append("\" height=\"").append(height).append("\" width=\"").append(width).append("\"<br>");
                         } else {
                             content.append("<img src=\"").append(responseLine.substring(x, y + 4)).append("\" height=\"").append(height).append("\" width=\"").append(width).append("\"<br>");
                         }
-                        
+
                         jTextPane1.setText(content.toString());
                         jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                     }
+                    
+                    /* GIF SUPPORT */
                     if ((responseLine.endsWith(".gif"))) {
                         int x = responseLine.indexOf("http");
                         int y = responseLine.indexOf(".gif");
-                        
-                        URL url = new URL(responseLine.substring(x,y+4));
+
+                        URL url = new URL(responseLine.substring(x, y + 4));
                         imgList.add(url.toString());
-                        
+                        jButton2.setEnabled(true);
+
                         BufferedImage img = ImageIO.read(url);
                         int height, width;
                         height = img.getHeight();
                         width = img.getWidth();
-                        
+
                         content.append("<img src=\"").append(responseLine.substring(x, y + 4)).append("\" height=\"").append(height).append("\" width=\"").append(width).append("\"<br>");
                         jTextPane1.setText(content.toString());
                         jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                     }
+                    
+                    /* 9GAG NON-GIF SUPPORT */
                     if (responseLine.contains("http://9gag.com/gag/")) {
                         int x = responseLine.indexOf("http://9gag.com/gag/");
 
                         URL url = new URL("http://images-cdn.9gag.com/photo/" + responseLine.substring(x + 20, x + 27) + "_700b.jpg");
                         imgList.add(url.toString());
-                        
+                        jButton2.setEnabled(true);
+
                         BufferedImage img = ImageIO.read(url);
                         int height, width;
                         height = img.getHeight();
                         width = img.getWidth();
-                        
+
                         content.append("<img src=\"http://images-cdn.9gag.com/photo/").append(responseLine.substring(x + 20, x + 27)).append("_700b.jpg").append("\" height=\"").append(height).append("\" width=\"").append(width).append("\"<br>");
                         jTextPane1.setText(content.toString());
                         jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
@@ -631,7 +640,7 @@ public class YahooMessenger extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private static javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -648,24 +657,24 @@ public class YahooMessenger extends javax.swing.JFrame {
     private javax.swing.JButton sendButton;
     // End of variables declaration//GEN-END:variables
     /* General variables */
-    private static final int myVersion = 141;
+    private static final int myVersion = 142;
     public static ArrayList<String> usersList = new ArrayList<String>();
-    
+
     /* Chat variables */
     public static String message;
-    private static String lastMessage = null;    
+    private static String lastMessage = null;
     private static StringBuilder content = new StringBuilder();
     private static String nickname;
     private static boolean nicknameFound = false;
-    
+
     /* File transfer variables */
     public static boolean accepted = false;
     public static boolean declined = false;
     public static String receiver, filenameString, directory;
-    
+
     /* Sound system variables */
     public static boolean muted = false;
-    
+
     /* Images system variables */
     public static ArrayList<String> imgList = new ArrayList<String>();
 }

@@ -18,7 +18,6 @@ public class Images extends javax.swing.JFrame {
      */
     public Images() {
         initComponents();
-        YahooMessenger.imgList.add("http://images-cdn.9gag.com/photo/6267271_700b.jpg");
         
         jTextPane1.setContentType("text/html");
         StringBuilder buildSomething = new StringBuilder();
@@ -29,6 +28,10 @@ public class Images extends javax.swing.JFrame {
         jTextField1.setText(YahooMessenger.imgList.get(imgIndicator));
         jButton1.setEnabled(false);
         jButton3.setEnabled(false);
+        if (YahooMessenger.imgList.size() == 1) {
+            jButton2.setEnabled(false);
+            jButton4.setEnabled(false);
+        }
     }
 
     /**
