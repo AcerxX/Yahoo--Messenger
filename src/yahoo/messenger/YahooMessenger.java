@@ -673,7 +673,7 @@ public class YahooMessenger extends javax.swing.JFrame {
     private javax.swing.JButton sendButton;
     // End of variables declaration//GEN-END:variables
     /* General variables */
-    private static final int myVersion = 143;
+    private static final int myVersion = 144;
     public static ArrayList<String> usersList = new ArrayList<String>();
 
     /* Chat variables */
