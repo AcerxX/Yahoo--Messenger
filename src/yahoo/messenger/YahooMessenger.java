@@ -46,7 +46,7 @@ public class YahooMessenger extends javax.swing.JFrame {
      * @throws java.net.MalformedURLException
      * @throws java.io.IOException
      */
-    public YahooMessenger() throws MalformedURLException, IOException {
+    public YahooMessenger() throws MalformedURLException, IOException {  
         /* Updater Script */
         // Remove old files
         File updater = new File("Updater.jar");
@@ -431,6 +431,7 @@ public class YahooMessenger extends javax.swing.JFrame {
                     if (responseLine.startsWith("/send")) {
                         accepted = false;
                         declined = false;
+                        receiverStatus = "Setting enviroment...";
 
                         Socket sk = new Socket("188.26.255.139", 5557);
 
@@ -461,24 +462,30 @@ public class YahooMessenger extends javax.swing.JFrame {
                             continue;
                         }
 
+                        getFile.main(new String[0]);
                         if (!filename.equals("")) {
+                            receiverStatus = "Sending READY to server...";
                             outReader.write("READY\n");
                             outReader.flush();
                         }
 
                         /* Create a new file in the tmp directory using the filename */
+                        receiverStatus = "Creating the file...";
                         FileOutputStream wr = new FileOutputStream(new File(directory + filename));
 
                         /* Get the buffer length from the server */
+                        receiverStatus = "Handshaking...";
                         int len = Integer.parseInt(inReader.readLine());
                         byte[] buffer = new byte[len];
 
                         int bytesReceived;
 
+                        receiverStatus = "Receiving...";
                         while ((bytesReceived = input.read(buffer)) > 0) {
                             /* Write to the file */
                             wr.write(buffer, 0, bytesReceived);
                         }
+                        receiverStatus = "DONE!";
                         continue;
                     }
 
@@ -686,7 +693,7 @@ public class YahooMessenger extends javax.swing.JFrame {
     /* File transfer variables */
     public static boolean accepted = false;
     public static boolean declined = false;
-    public static String receiver, filenameString, directory;
+    public static String receiver, filenameString, directory, receiverStatus;
 
     /* Sound system variables */
     public static boolean muted = false;
