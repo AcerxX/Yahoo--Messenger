@@ -78,7 +78,7 @@ public class Preferences extends javax.swing.JFrame {
 
         jLabel2.setText("Download location:");
 
-        jTextField2.setText("C://tmp");
+        jTextField2.setText("C://tmp/");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
