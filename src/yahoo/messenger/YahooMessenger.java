@@ -483,6 +483,22 @@ public class YahooMessenger extends javax.swing.JFrame {
                     }
 
                     /* Normal chat messages */
+                    /* Check if message contains <,>, or & and repair it */
+                    int index = responseLine.indexOf("</B>");
+                    for (int i = index+4; i < responseLine.length(); i++) {
+                        if (responseLine.charAt(i) == '<') {
+                            responseLine = responseLine.substring(0, i) + "&lt;" + responseLine.substring(i+1, responseLine.length());
+                            i = i + 3;
+                        }
+                        if (responseLine.charAt(i) == '>') {
+                            responseLine = responseLine.substring(0, i) + "&gt;" + responseLine.substring(i+1, responseLine.length());
+                            i = i + 3;
+                        }
+                        if (responseLine.charAt(i) == '&') {
+                            responseLine = responseLine.substring(0, i) + "&amp;" + responseLine.substring(i+1, responseLine.length());
+                            i = i + 3;
+                        }
+                    }
                     content.append(responseLine).append("<br>");
                     jTextPane1.setText(content.toString());
                     jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
