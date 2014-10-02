@@ -22,13 +22,17 @@ import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.net.Socket;
+import java.net.URI;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javax.imageio.ImageIO;
 import javax.swing.SwingWorker;
 import sun.audio.AudioPlayer;
@@ -64,6 +68,7 @@ public class ChatBox extends javax.swing.JFrame {
             AcerX.mkdir();
         }
 
+        Intro.main(new String[0]);
         // Check if update exists
         URL website = new URL("http://aica.org.ro/images/FTP/version.txt");
         ReadableByteChannel rbc = Channels.newChannel(website.openStream());
@@ -86,6 +91,18 @@ public class ChatBox extends javax.swing.JFrame {
 
         }
         /* End of Updater Script */
+        introStatus = 50;
+        
+        /* Check and download required files */
+        File BUZZ = new File(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.mp3");
+        if (!BUZZ.exists()) {
+            URL buzzURL = new URL ("http://aica.org.ro/images/FTP/BUZZ.mp3");
+            ReadableByteChannel rbc3 = Channels.newChannel(buzzURL.openStream());
+            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.mp3");
+            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
+        }
+        introStatus = 100;
+        /* End of Check */
         
         
         /* Load saved preferences if there are any */
@@ -419,9 +436,14 @@ public class ChatBox extends javax.swing.JFrame {
 
                     /* BUZZ */
                     if (responseLine.contains("/BUZZ")) {
-                        InputStream inDing = new FileInputStream(System.getenv("SystemRoot") + "/Media/Windows Logon.wav");
+                        String u = "file:/" + System.getProperty("user.home") + "/Documents/AcerX/BUZZ.mp3";
+                        u = u.replace("\\", "/");
+                        Media bz = new Media(u);
+                        MediaPlayer mediaPlayer = new MediaPlayer(bz);
+                        mediaPlayer.play();
+                        /*InputStream inDing = new FileInputStream(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.mp3");
                         AudioStream asDing = new AudioStream(inDing);
-                        AudioPlayer.player.start(asDing);
+                        AudioPlayer.player.start(asDing);*/
                     }
 
                     /* Users online */
@@ -691,6 +713,7 @@ public class ChatBox extends javax.swing.JFrame {
     /* General variables */
     private static final int myVersion = 150;
     public static ArrayList<String> usersList = new ArrayList<String>();
+    public static int introStatus = 0;
 
     /* Chat variables */
     public static String message;
