@@ -16,7 +16,7 @@ public class FileReceiver extends javax.swing.JFrame {
      */
     public FileReceiver() {
         initComponents();
-        jLabel1.setText("Someone wants to send to you " + YahooMessenger.filenameString);
+        jLabel1.setText("Someone wants to send to you " + ChatBox.filenameString);
     }
 
     /**
@@ -85,12 +85,12 @@ public class FileReceiver extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        YahooMessenger.accepted = true;
+        ChatBox.accepted = true;
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        YahooMessenger.declined = true;
+        ChatBox.declined = true;
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

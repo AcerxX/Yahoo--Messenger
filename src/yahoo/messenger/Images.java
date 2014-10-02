@@ -22,13 +22,13 @@ public class Images extends javax.swing.JFrame {
         jTextPane1.setContentType("text/html");
         StringBuilder buildSomething = new StringBuilder();
         buildSomething.append("<html>");
-        buildSomething.append("<img src=\"").append(YahooMessenger.imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
+        buildSomething.append("<img src=\"").append(ChatBox.imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
         buildSomething.append("</html>");
         jTextPane1.setText(buildSomething.toString());
-        jTextField1.setText(YahooMessenger.imgList.get(imgIndicator));
+        jTextField1.setText(ChatBox.imgList.get(imgIndicator));
         jButton1.setEnabled(false);
         jButton3.setEnabled(false);
-        if (YahooMessenger.imgList.size() == 1) {
+        if (ChatBox.imgList.size() == 1) {
             jButton2.setEnabled(false);
             jButton4.setEnabled(false);
         }
@@ -148,16 +148,16 @@ public class Images extends javax.swing.JFrame {
         imgIndicator++;
         jButton1.setEnabled(true);
         jButton3.setEnabled(true);
-        if (imgIndicator == (YahooMessenger.imgList.size() - 1)){
+        if (imgIndicator == (ChatBox.imgList.size() - 1)){
             jButton2.setEnabled(false);
             jButton4.setEnabled(false);
         }
         StringBuilder buildSomething = new StringBuilder();
         buildSomething.append("<html>");
-        buildSomething.append("<img src=\"").append(YahooMessenger.imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
+        buildSomething.append("<img src=\"").append(ChatBox.imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
         buildSomething.append("</html>");
         jTextPane1.setText(buildSomething.toString());
-        jTextField1.setText(YahooMessenger.imgList.get(imgIndicator));
+        jTextField1.setText(ChatBox.imgList.get(imgIndicator));
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -170,14 +170,14 @@ public class Images extends javax.swing.JFrame {
         }
         StringBuilder buildSomething = new StringBuilder();
         buildSomething.append("<html>");
-        buildSomething.append("<img src=\"").append(YahooMessenger.imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
+        buildSomething.append("<img src=\"").append(ChatBox.imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
         buildSomething.append("</html>");
         jTextPane1.setText(buildSomething.toString());
-        jTextField1.setText(YahooMessenger.imgList.get(imgIndicator));
+        jTextField1.setText(ChatBox.imgList.get(imgIndicator));
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        imgIndicator = YahooMessenger.imgList.size() - 1;
+        imgIndicator = ChatBox.imgList.size() - 1;
         jButton3.setEnabled(true);
         jButton1.setEnabled(true);
         jButton4.setEnabled(false);
@@ -185,10 +185,10 @@ public class Images extends javax.swing.JFrame {
         
         StringBuilder buildSomething = new StringBuilder();
         buildSomething.append("<html>");
-        buildSomething.append("<img src=\"").append(YahooMessenger.imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
+        buildSomething.append("<img src=\"").append(ChatBox.imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
         buildSomething.append("</html>");
         jTextPane1.setText(buildSomething.toString());
-        jTextField1.setText(YahooMessenger.imgList.get(imgIndicator));
+        jTextField1.setText(ChatBox.imgList.get(imgIndicator));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -200,10 +200,10 @@ public class Images extends javax.swing.JFrame {
         
         StringBuilder buildSomething = new StringBuilder();
         buildSomething.append("<html>");
-        buildSomething.append("<img src=\"").append(YahooMessenger.imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
+        buildSomething.append("<img src=\"").append(ChatBox.imgList.get(imgIndicator)).append("\" height=\"630\" width=\"510\">");
         buildSomething.append("</html>");
         jTextPane1.setText(buildSomething.toString());
-        jTextField1.setText(YahooMessenger.imgList.get(imgIndicator));
+        jTextField1.setText(ChatBox.imgList.get(imgIndicator));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

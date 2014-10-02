@@ -30,7 +30,7 @@ public class SendFile extends javax.swing.JFrame {
      */
     public SendFile() {
         initComponents();
-        for(String x : YahooMessenger.usersList){
+        for(String x : ChatBox.usersList){
             jComboBox1.addItem(x);
         }
         
@@ -42,7 +42,7 @@ public class SendFile extends javax.swing.JFrame {
         protected Integer doInBackground() throws Exception {
             /* Try to connect to the server on localhost, port 5556 */
             jLabel3.setText("Sending transfer command");
-            YahooMessenger.MultiThreadChatClient.os.println("/send");
+            ChatBox.MultiThreadChatClient.os.println("/send");
             Socket sk = new Socket("188.26.255.139", 5557);
             OutputStream output = sk.getOutputStream();
             

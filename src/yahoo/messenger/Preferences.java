@@ -29,7 +29,7 @@ public class Preferences extends javax.swing.JFrame {
         initComponents();
         
         /* Load saved preferences if there are any */
-        File prefFile = new File(System.getProperty("user.home") + "/Documents/settingsYM.txt");
+        File prefFile = new File(System.getProperty("user.home") + "/Documents/AcerX/settingsYM.txt");
         if (prefFile.exists()) {
             BufferedReader pref = new BufferedReader(new FileReader(prefFile));
             jTextField1.setText(pref.readLine());
@@ -161,15 +161,15 @@ public class Preferences extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         PrintWriter settings = null;
         try {
-            settings = new PrintWriter(System.getProperty("user.home")+"/Documents/settingsYM.txt", "UTF-8");
+            settings = new PrintWriter(System.getProperty("user.home")+"/Documents/AcerX/settingsYM.txt", "UTF-8");
             settings.println(jTextField1.getText());
             settings.println(jTextField2.getText());
             if(jCheckBox1.isSelected()) {
                 settings.println("true");
-                YahooMessenger.muted = true;
+                ChatBox.muted = true;
             } else {
                 settings.println("false");
-                YahooMessenger.muted = false;
+                ChatBox.muted = false;
             }
             dispose();
         } catch (FileNotFoundException ex) {
@@ -192,17 +192,17 @@ public class Preferences extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         PrintWriter settings = null;
         try {
-            settings = new PrintWriter(System.getProperty("user.home")+"/Documents/settingsYM.txt", "UTF-8");
+            settings = new PrintWriter(System.getProperty("user.home")+"/Documents/AcerX/settingsYM.txt", "UTF-8");
             settings.println(jTextField1.getText());
             settings.println(jTextField2.getText());
             if(jCheckBox1.isSelected()) {
                 settings.println("true");
-                YahooMessenger.muted = true;
+                ChatBox.muted = true;
             } else {
                 settings.println("false");
-                YahooMessenger.muted = false;
+                ChatBox.muted = false;
             }
-            YahooMessenger.message = "/quit";
+            ChatBox.message = "/quit";
             settings.close();
             System.exit(0);
         } catch (FileNotFoundException ex) {

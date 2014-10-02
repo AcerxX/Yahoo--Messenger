@@ -38,7 +38,7 @@ import sun.audio.AudioStream;
  *
  * @author alexa_000
  */
-public class YahooMessenger extends javax.swing.JFrame {
+public class ChatBox extends javax.swing.JFrame {
 
     /**
      * Creates new form YahooMessenger
@@ -46,27 +46,35 @@ public class YahooMessenger extends javax.swing.JFrame {
      * @throws java.net.MalformedURLException
      * @throws java.io.IOException
      */
-    public YahooMessenger() throws MalformedURLException, IOException {  
+    public ChatBox() throws MalformedURLException, IOException {  
         /* Updater Script */
         // Remove old files
         File updater = new File("Updater.jar");
         if (updater.exists()) {
             updater.delete();
         }
-        File version = new File("version");
-        version.delete();
+        
+        File oldSettingsYM = new File(System.getProperty("user.home") + "/Documents/settingsYM.txt");
+        if (oldSettingsYM.exists()) {
+            oldSettingsYM.delete();
+        }
+        
+        File AcerX = new File(System.getProperty("user.home") + "/Documents/AcerX/");
+        if (!AcerX.exists()){
+            AcerX.mkdir();
+        }
 
         // Check if update exists
         URL website = new URL("http://aica.org.ro/images/FTP/version.txt");
         ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-        FileOutputStream fos = new FileOutputStream("version");
+        FileOutputStream fos = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/version");
         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 
-        BufferedReader x = new BufferedReader(new FileReader("version"));
+        BufferedReader x = new BufferedReader(new FileReader(System.getProperty("user.home") + "/Documents/AcerX/version"));
         String latestVersion = x.readLine();
         if (myVersion < Integer.parseInt(latestVersion)) {
             // Get updater from server
-            URL srv = new URL("http://aica.org.ro/images/FTP/Updater.jpg");
+            URL srv = new URL("http://aica.org.ro/images/FTP/Updater.jar");
             ReadableByteChannel rbc2 = Channels.newChannel(srv.openStream());
             FileOutputStream fos2 = new FileOutputStream("updater.jar");
             fos2.getChannel().transferFrom(rbc2, 0, Long.MAX_VALUE);
@@ -77,11 +85,11 @@ public class YahooMessenger extends javax.swing.JFrame {
             System.exit(0);
 
         }
-
-
         /* End of Updater Script */
+        
+        
         /* Load saved preferences if there are any */
-        File prefFile = new File(System.getProperty("user.home") + "/Documents/settingsYM.txt");
+        File prefFile = new File(System.getProperty("user.home") + "/Documents/AcerX/settingsYM.txt");
         if (prefFile.exists()) {
             BufferedReader pref = new BufferedReader(new FileReader(prefFile));
             nickname = pref.readLine();
@@ -151,7 +159,7 @@ public class YahooMessenger extends javax.swing.JFrame {
         jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Yahooo Messenger v1.4");
+        setTitle("ChatBox v1.5");
 
         messageBox.setColumns(20);
         messageBox.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
@@ -634,18 +642,19 @@ public class YahooMessenger extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(YahooMessenger.class
+            java.util.logging.Logger.getLogger(ChatBox.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(YahooMessenger.class
+            java.util.logging.Logger.getLogger(ChatBox.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(YahooMessenger.class
+            java.util.logging.Logger.getLogger(ChatBox.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(YahooMessenger.class
+            java.util.logging.Logger.getLogger(ChatBox.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -653,9 +662,9 @@ public class YahooMessenger extends javax.swing.JFrame {
             @Override
             public void run() {
                 try {
-                    new YahooMessenger().setVisible(true);
+                    new ChatBox().setVisible(true);
                 } catch (IOException ex) {
-                    Logger.getLogger(YahooMessenger.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ChatBox.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -680,7 +689,7 @@ public class YahooMessenger extends javax.swing.JFrame {
     private javax.swing.JButton sendButton;
     // End of variables declaration//GEN-END:variables
     /* General variables */
-    private static final int myVersion = 144;
+    private static final int myVersion = 150;
     public static ArrayList<String> usersList = new ArrayList<String>();
 
     /* Chat variables */

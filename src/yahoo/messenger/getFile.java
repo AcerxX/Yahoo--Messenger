@@ -26,7 +26,7 @@ public class getFile extends javax.swing.JFrame {
         @Override
         protected Integer doInBackground() throws Exception {
             while(true){
-                jLabel1.setText(YahooMessenger.receiverStatus);
+                jLabel1.setText(ChatBox.receiverStatus);
                 if (jLabel1.equals("DAFUQ")) {
                     break;
                 }
