@@ -106,7 +106,6 @@ public class ChatBox extends javax.swing.JFrame {
         introStatus = 30;
         
         /* Check and download required files */
-        //<editor-fold defaultstate="collapsed" desc=" Check/download all required files ">
         File BUZZ = new File(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.wav");
         if (!BUZZ.exists()) {
             URL buzzURL = new URL ("http://aica.org.ro/images/FTP/BUZZ.wav");
@@ -115,97 +114,6 @@ public class ChatBox extends javax.swing.JFrame {
             fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
         }
         introStatus = 40;
-        
-        File eHappy = new File(System.getProperty("user.home") + "/Documents/AcerX/happy.gif");
-        if (!eHappy.exists()) {
-            URL eHappyURL = new URL ("http://aica.org.ro/images/FTP/happy.gif");
-            ReadableByteChannel rbc3 = Channels.newChannel(eHappyURL.openStream());
-            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/happy.gif");
-            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
-        }
-        introStatus = 45;
-        
-        File eSad = new File(System.getProperty("user.home") + "/Documents/AcerX/sad.gif");
-        if (!eSad.exists()) {
-            URL eSadURL = new URL ("http://aica.org.ro/images/FTP/sad.gif");
-            ReadableByteChannel rbc3 = Channels.newChannel(eSadURL.openStream());
-            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/sad.gif");
-            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
-        }
-        introStatus = 50;
-        
-        File eWinking = new File(System.getProperty("user.home") + "/Documents/AcerX/winking.gif");
-        if (!eWinking.exists()) {
-            URL eWinkingURL = new URL ("http://aica.org.ro/images/FTP/winking.gif");
-            ReadableByteChannel rbc3 = Channels.newChannel(eWinkingURL.openStream());
-            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/winking.gif");
-            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
-        }
-        introStatus = 55;
-        
-        File eBigGrin = new File(System.getProperty("user.home") + "/Documents/AcerX/big_grin.gif");
-        if (!eBigGrin.exists()) {
-            URL eBigGrinURL = new URL ("http://aica.org.ro/images/FTP/big_grin.gif");
-            ReadableByteChannel rbc3 = Channels.newChannel(eBigGrinURL.openStream());
-            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/big_grin.gif");
-            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
-        }
-        introStatus = 60;
-        
-        File eBigHug = new File(System.getProperty("user.home") + "/Documents/AcerX/big_hug.gif");
-        if (!eBigHug.exists()) {
-            URL eBigHugURL = new URL ("http://aica.org.ro/images/FTP/big_hug.gif");
-            ReadableByteChannel rbc3 = Channels.newChannel(eBigHugURL.openStream());
-            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/big_hug.gif");
-            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
-        }
-        introStatus = 65;
-        
-        File eLoveStruck = new File(System.getProperty("user.home") + "/Documents/AcerX/love_struck.gif");
-        if (!eLoveStruck.exists()) {
-            URL eLoveStruckURL = new URL ("http://aica.org.ro/images/FTP/love_struck.gif");
-            ReadableByteChannel rbc3 = Channels.newChannel(eLoveStruckURL.openStream());
-            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/love_struck.gif");
-            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
-        }
-        introStatus = 70;
-        
-        File eTongue = new File(System.getProperty("user.home") + "/Documents/AcerX/tongue.gif");
-        if (!eTongue.exists()) {
-            URL eTongueURL = new URL ("http://aica.org.ro/images/FTP/tongue.gif");
-            ReadableByteChannel rbc3 = Channels.newChannel(eTongueURL.openStream());
-            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/tongue.gif");
-            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
-        }
-        introStatus = 75;
-        
-        File eKiss = new File(System.getProperty("user.home") + "/Documents/AcerX/kiss.gif");
-        if (!eKiss.exists()) {
-            URL eKissURL = new URL ("http://aica.org.ro/images/FTP/kiss.gif");
-            ReadableByteChannel rbc3 = Channels.newChannel(eKissURL.openStream());
-            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/kiss.gif");
-            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
-        }
-        introStatus = 80;
-        
-        File eAngry = new File(System.getProperty("user.home") + "/Documents/AcerX/angry.gif");
-        if (!eAngry.exists()) {
-            URL eAngryURL = new URL ("http://aica.org.ro/images/FTP/angry.gif");
-            ReadableByteChannel rbc3 = Channels.newChannel(eAngryURL.openStream());
-            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/angry.gif");
-            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
-        }
-        introStatus = 85;
-        
-        File eROFL = new File(System.getProperty("user.home") + "/Documents/AcerX/rofl.gif");
-        if (!eROFL.exists()) {
-            URL eROFLURL = new URL ("http://aica.org.ro/images/FTP/rofl.gif");
-            ReadableByteChannel rbc3 = Channels.newChannel(eROFLURL.openStream());
-            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/rofl.gif");
-            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
-        }
-        introStatus = 90;
-        //</editor-fold>
         /* End of Check */
         introStatus = 100;
         
@@ -560,6 +468,7 @@ public class ChatBox extends javax.swing.JFrame {
                     }
 
                     /* File transfer protocol */
+                    //<editor-fold defaultstate="collapsed" desc=" RECEIVING FILE ">
                     if (responseLine.startsWith("/send")) {
                         accepted = false;
                         declined = false;
@@ -620,8 +529,12 @@ public class ChatBox extends javax.swing.JFrame {
                         receiverStatus = "DONE!";
                         continue;
                     }
+                    //</editor-fold>
 
                     /* Normal chat messages */
+                    
+                   
+                    
                     /* Check if message contains <,>, or & and repair it */
                     int index = responseLine.indexOf("</B>");
                     for (int i = index+4; i < responseLine.length(); i++) {
@@ -638,6 +551,101 @@ public class ChatBox extends javax.swing.JFrame {
                             i = i + 3;
                         }
                     }
+                    
+                     /* Check if message contains emoticons and display them */
+                    //<editor-fold defaultstate="collapsed" desc=" EMOTICONS ">
+                    
+                    // LOVE
+                    if (responseLine.contains(":x")) {
+                        int x = responseLine.indexOf(":x");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/love_struck.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    if (responseLine.contains(":X")) {
+                        int x = responseLine.indexOf(":X");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/love_struck.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    if (responseLine.contains("<3")) {
+                        int x = responseLine.indexOf("<3");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/love_struck.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    
+                    // HAPPY
+                    if (responseLine.contains(":)")) {
+                        int x = responseLine.indexOf(":)");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/happy.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    
+                    // ANGRY
+                    if (responseLine.contains("x(")) {
+                        int x = responseLine.indexOf("x(");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/angry.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    if (responseLine.contains("X(")) {
+                        int x = responseLine.indexOf("X(");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/angry.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    
+                    // BIG HUG
+                    if (responseLine.contains("&gt;:D&lt;")) {
+                        int x = responseLine.indexOf("&gt;:D&lt;");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/big_hug.gif\">" + responseLine.substring(x+10, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    
+                    // BIG GRIN
+                    if (responseLine.contains(":D")) {
+                        int x = responseLine.indexOf(":D");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/big_grin.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }                    
+                    
+                    // KISS
+                    if (responseLine.contains(":*")) {
+                        int x = responseLine.indexOf(":*");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/kiss.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    
+                    // ROFL
+                    if (responseLine.contains("=))")) {
+                        int x = responseLine.indexOf("=))");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/rofl.gif\">" + responseLine.substring(x+3, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    
+                    // SAD
+                    if (responseLine.contains(":(")) {
+                        int x = responseLine.indexOf(":(");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/sad.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    
+                    // TONGUE
+                    if (responseLine.contains(":p")) {
+                        int x = responseLine.indexOf(":p");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/tongue.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    if (responseLine.contains(":P")) {
+                        int x = responseLine.indexOf(":P");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/tongue.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    
+                    // WINKING
+                    if (responseLine.contains(";)")) {
+                        int x = responseLine.indexOf(";)");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/winking.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    //</editor-fold>
+                    
                     content.append(responseLine).append("<br>");
                     jTextPane1.setText(content.toString());
                     jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
@@ -649,8 +657,9 @@ public class ChatBox extends javax.swing.JFrame {
                         AudioStream asDing = new AudioStream(inDing);
                         AudioPlayer.player.start(asDing);
                     }
-
+                    
                     /* Check if the message contains a link and parse it */
+                    //<editor-fold defaultstate="collapsed" desc=" IMAGES SUPPORTED ">
                     /* JPG AND FACEBOOK(50%) SUPPORT */
                     if ((responseLine.contains(".jpg"))) {
                         int x = responseLine.indexOf("http");
@@ -735,6 +744,8 @@ public class ChatBox extends javax.swing.JFrame {
                         jTextPane1.setText(content.toString());
                         jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                     }
+                    //</editor-fold>
+                    
                     if (responseLine.indexOf("*** Bye") != -1) {
                         break;
                     }
