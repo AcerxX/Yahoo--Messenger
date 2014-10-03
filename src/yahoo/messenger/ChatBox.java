@@ -240,6 +240,7 @@ public class ChatBox extends javax.swing.JFrame {
 
         jTextPane1.setEditable(false);
         jTextPane1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jTextPane1.setDoubleBuffered(true);
         jScrollPane4.setViewportView(jTextPane1);
 
         jMenu1.setText("File");
@@ -566,9 +567,11 @@ public class ChatBox extends javax.swing.JFrame {
                         responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/love_struck.gif\">" + responseLine.substring(x+2, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }
-                    if (responseLine.contains("<3")) {
-                        int x = responseLine.indexOf("<3");
-                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/love_struck.gif\">" + responseLine.substring(x+2, responseLine.length());
+                    
+                    // HEART
+                    if (responseLine.contains("&lt;3")) {
+                        int x = responseLine.indexOf("&lt;3");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/heart.gif\">" + responseLine.substring(x+5, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }
                     
@@ -824,7 +827,7 @@ public class ChatBox extends javax.swing.JFrame {
     private javax.swing.JButton sendButton;
     // End of variables declaration//GEN-END:variables
     /* General variables */
-    private static final int myVersion = 160;
+    private static final int myVersion = 161;
     public static ArrayList<String> usersList = new ArrayList<String>();
     public static int introStatus = 0;
 
