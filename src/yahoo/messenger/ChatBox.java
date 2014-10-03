@@ -22,17 +22,13 @@ import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.net.Socket;
-import java.net.URI;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javax.imageio.ImageIO;
 import javax.swing.SwingWorker;
 import sun.audio.AudioPlayer;
@@ -55,32 +51,35 @@ public class ChatBox extends javax.swing.JFrame {
         
         
         /* CleanUp */
+        //<editor-fold defaultstate="collapsed" desc=" CLEANUP ">
         File updater = new File("Updater.jar");
         if (updater.exists()) {
             updater.delete();
         }
-        introStatus = 20;
+        introStatus = 5;
         
         File oldSettingsYM = new File(System.getProperty("user.home") + "/Documents/settingsYM.txt");
         if (oldSettingsYM.exists()) {
             oldSettingsYM.delete();
         }
-        introStatus = 30;
+        introStatus = 10;
         
-        File oldBUZZ = new File(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.wav");
+        File oldBUZZ = new File(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.mp3");
         if (oldBUZZ.exists()) {
             oldBUZZ.delete();
         }
-        introStatus = 40;
+        introStatus = 15;
         
         File AcerX = new File(System.getProperty("user.home") + "/Documents/AcerX/");
         if (!AcerX.exists()){
             AcerX.mkdir();
         }
-        introStatus = 50;
+        introStatus = 20;
+        //</editor-fold>
         /* END of CleanUp */
         
         /* Updater Script */
+        //<editor-fold defaultstate="collapsed" desc=" AUTO-UPDATER ">
         // Check if update exists
         URL website = new URL("http://aica.org.ro/images/FTP/version.txt");
         ReadableByteChannel rbc = Channels.newChannel(website.openStream());
@@ -103,9 +102,11 @@ public class ChatBox extends javax.swing.JFrame {
 
         }
         /* End of Updater Script */
-        introStatus = 75;
+        //</editor-fold>
+        introStatus = 30;
         
         /* Check and download required files */
+        //<editor-fold defaultstate="collapsed" desc=" Check/download all required files ">
         File BUZZ = new File(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.wav");
         if (!BUZZ.exists()) {
             URL buzzURL = new URL ("http://aica.org.ro/images/FTP/BUZZ.wav");
@@ -113,11 +114,104 @@ public class ChatBox extends javax.swing.JFrame {
             FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.wav");
             fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
         }
-        introStatus = 100;
+        introStatus = 40;
+        
+        File eHappy = new File(System.getProperty("user.home") + "/Documents/AcerX/happy.gif");
+        if (!eHappy.exists()) {
+            URL eHappyURL = new URL ("http://aica.org.ro/images/FTP/happy.gif");
+            ReadableByteChannel rbc3 = Channels.newChannel(eHappyURL.openStream());
+            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/happy.gif");
+            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
+        }
+        introStatus = 45;
+        
+        File eSad = new File(System.getProperty("user.home") + "/Documents/AcerX/sad.gif");
+        if (!eSad.exists()) {
+            URL eSadURL = new URL ("http://aica.org.ro/images/FTP/sad.gif");
+            ReadableByteChannel rbc3 = Channels.newChannel(eSadURL.openStream());
+            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/sad.gif");
+            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
+        }
+        introStatus = 50;
+        
+        File eWinking = new File(System.getProperty("user.home") + "/Documents/AcerX/winking.gif");
+        if (!eWinking.exists()) {
+            URL eWinkingURL = new URL ("http://aica.org.ro/images/FTP/winking.gif");
+            ReadableByteChannel rbc3 = Channels.newChannel(eWinkingURL.openStream());
+            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/winking.gif");
+            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
+        }
+        introStatus = 55;
+        
+        File eBigGrin = new File(System.getProperty("user.home") + "/Documents/AcerX/big_grin.gif");
+        if (!eBigGrin.exists()) {
+            URL eBigGrinURL = new URL ("http://aica.org.ro/images/FTP/big_grin.gif");
+            ReadableByteChannel rbc3 = Channels.newChannel(eBigGrinURL.openStream());
+            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/big_grin.gif");
+            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
+        }
+        introStatus = 60;
+        
+        File eBigHug = new File(System.getProperty("user.home") + "/Documents/AcerX/big_hug.gif");
+        if (!eBigHug.exists()) {
+            URL eBigHugURL = new URL ("http://aica.org.ro/images/FTP/big_hug.gif");
+            ReadableByteChannel rbc3 = Channels.newChannel(eBigHugURL.openStream());
+            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/big_hug.gif");
+            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
+        }
+        introStatus = 65;
+        
+        File eLoveStruck = new File(System.getProperty("user.home") + "/Documents/AcerX/love_struck.gif");
+        if (!eLoveStruck.exists()) {
+            URL eLoveStruckURL = new URL ("http://aica.org.ro/images/FTP/love_struck.gif");
+            ReadableByteChannel rbc3 = Channels.newChannel(eLoveStruckURL.openStream());
+            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/love_struck.gif");
+            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
+        }
+        introStatus = 70;
+        
+        File eTongue = new File(System.getProperty("user.home") + "/Documents/AcerX/tongue.gif");
+        if (!eTongue.exists()) {
+            URL eTongueURL = new URL ("http://aica.org.ro/images/FTP/tongue.gif");
+            ReadableByteChannel rbc3 = Channels.newChannel(eTongueURL.openStream());
+            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/tongue.gif");
+            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
+        }
+        introStatus = 75;
+        
+        File eKiss = new File(System.getProperty("user.home") + "/Documents/AcerX/kiss.gif");
+        if (!eKiss.exists()) {
+            URL eKissURL = new URL ("http://aica.org.ro/images/FTP/kiss.gif");
+            ReadableByteChannel rbc3 = Channels.newChannel(eKissURL.openStream());
+            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/kiss.gif");
+            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
+        }
+        introStatus = 80;
+        
+        File eAngry = new File(System.getProperty("user.home") + "/Documents/AcerX/angry.gif");
+        if (!eAngry.exists()) {
+            URL eAngryURL = new URL ("http://aica.org.ro/images/FTP/angry.gif");
+            ReadableByteChannel rbc3 = Channels.newChannel(eAngryURL.openStream());
+            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/angry.gif");
+            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
+        }
+        introStatus = 85;
+        
+        File eROFL = new File(System.getProperty("user.home") + "/Documents/AcerX/rofl.gif");
+        if (!eROFL.exists()) {
+            URL eROFLURL = new URL ("http://aica.org.ro/images/FTP/rofl.gif");
+            ReadableByteChannel rbc3 = Channels.newChannel(eROFLURL.openStream());
+            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/rofl.gif");
+            fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
+        }
+        introStatus = 90;
+        //</editor-fold>
         /* End of Check */
+        introStatus = 100;
         
         
         /* Load saved preferences if there are any */
+        //<editor-fold defaultstate="collapsed" desc=" LOAD PREFERENCES ">
         File prefFile = new File(System.getProperty("user.home") + "/Documents/AcerX/settingsYM.txt");
         if (prefFile.exists()) {
             BufferedReader pref = new BufferedReader(new FileReader(prefFile));
@@ -139,6 +233,7 @@ public class ChatBox extends javax.swing.JFrame {
                 directory = "C://tmp/";
             }
         }
+        //</editor-fold>
 
         /* Initialize the client */
         initComponents();
@@ -188,7 +283,7 @@ public class ChatBox extends javax.swing.JFrame {
         jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("ChatBox v1.5");
+        setTitle("ChatBox v1.6");
 
         messageBox.setColumns(20);
         messageBox.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
@@ -718,7 +813,7 @@ public class ChatBox extends javax.swing.JFrame {
     private javax.swing.JButton sendButton;
     // End of variables declaration//GEN-END:variables
     /* General variables */
-    private static final int myVersion = 151;
+    private static final int myVersion = 160;
     public static ArrayList<String> usersList = new ArrayList<String>();
     public static int introStatus = 0;
 
