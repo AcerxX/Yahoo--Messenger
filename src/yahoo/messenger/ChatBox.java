@@ -50,25 +50,37 @@ public class ChatBox extends javax.swing.JFrame {
      * @throws java.net.MalformedURLException
      * @throws java.io.IOException
      */
-    public ChatBox() throws MalformedURLException, IOException {  
-        /* Updater Script */
-        // Remove old files
+    public ChatBox() throws MalformedURLException, IOException { 
+        Intro.main(new String[0]);
+        
+        
+        /* CleanUp */
         File updater = new File("Updater.jar");
         if (updater.exists()) {
             updater.delete();
         }
+        introStatus = 20;
         
         File oldSettingsYM = new File(System.getProperty("user.home") + "/Documents/settingsYM.txt");
         if (oldSettingsYM.exists()) {
             oldSettingsYM.delete();
         }
+        introStatus = 30;
+        
+        File oldBUZZ = new File(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.wav");
+        if (oldBUZZ.exists()) {
+            oldBUZZ.delete();
+        }
+        introStatus = 40;
         
         File AcerX = new File(System.getProperty("user.home") + "/Documents/AcerX/");
         if (!AcerX.exists()){
             AcerX.mkdir();
         }
-
-        Intro.main(new String[0]);
+        introStatus = 50;
+        /* END of CleanUp */
+        
+        /* Updater Script */
         // Check if update exists
         URL website = new URL("http://aica.org.ro/images/FTP/version.txt");
         ReadableByteChannel rbc = Channels.newChannel(website.openStream());
@@ -91,14 +103,14 @@ public class ChatBox extends javax.swing.JFrame {
 
         }
         /* End of Updater Script */
-        introStatus = 50;
+        introStatus = 75;
         
         /* Check and download required files */
-        File BUZZ = new File(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.mp3");
+        File BUZZ = new File(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.wav");
         if (!BUZZ.exists()) {
-            URL buzzURL = new URL ("http://aica.org.ro/images/FTP/BUZZ.mp3");
+            URL buzzURL = new URL ("http://aica.org.ro/images/FTP/BUZZ.wav");
             ReadableByteChannel rbc3 = Channels.newChannel(buzzURL.openStream());
-            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.mp3");
+            FileOutputStream fos3 = new FileOutputStream(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.wav");
             fos3.getChannel().transferFrom(rbc3, 0, Long.MAX_VALUE);            
         }
         introStatus = 100;
@@ -436,14 +448,9 @@ public class ChatBox extends javax.swing.JFrame {
 
                     /* BUZZ */
                     if (responseLine.contains("/BUZZ")) {
-                        String u = "file:/" + System.getProperty("user.home") + "/Documents/AcerX/BUZZ.mp3";
-                        u = u.replace("\\", "/");
-                        Media bz = new Media(u);
-                        MediaPlayer mediaPlayer = new MediaPlayer(bz);
-                        mediaPlayer.play();
-                        /*InputStream inDing = new FileInputStream(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.mp3");
+                        InputStream inDing = new FileInputStream(System.getProperty("user.home") + "/Documents/AcerX/BUZZ.wav");
                         AudioStream asDing = new AudioStream(inDing);
-                        AudioPlayer.player.start(asDing);*/
+                        AudioPlayer.player.start(asDing);
                     }
 
                     /* Users online */
@@ -711,7 +718,7 @@ public class ChatBox extends javax.swing.JFrame {
     private javax.swing.JButton sendButton;
     // End of variables declaration//GEN-END:variables
     /* General variables */
-    private static final int myVersion = 150;
+    private static final int myVersion = 151;
     public static ArrayList<String> usersList = new ArrayList<String>();
     public static int introStatus = 0;
 
