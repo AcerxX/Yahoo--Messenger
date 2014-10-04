@@ -391,11 +391,10 @@ public class ChatBox extends javax.swing.JFrame {
                 os = new PrintStream(clientSocket.getOutputStream());
                 is = new DataInputStream(clientSocket.getInputStream());
             } catch (UnknownHostException e) {
-                content.append("Don't know about host " + host + "<br>");
+                content.append("Don't know about host ").append(host).append("<br>");
                 jTextPane1.setText(content.toString());
             } catch (IOException e) {
-                content.append("Couldn't get I/O for the connection to the host "
-                        + host + "<br>");
+                content.append("Couldn't get I/O for the connection to the host ").append(host).append("<br>");
                 jTextPane1.setText(content.toString());
             }
 
@@ -430,7 +429,7 @@ public class ChatBox extends javax.swing.JFrame {
                     is.close();
                     clientSocket.close();
                 } catch (IOException e) {
-                    content.append("IOException:  " + e);
+                    content.append("IOException:  ").append(e);
                     jTextPane1.setText(content.toString());
                 }
             }
@@ -441,6 +440,7 @@ public class ChatBox extends javax.swing.JFrame {
          * 
          * @see java.lang.Runnable#run()
          */
+        @Override
         public void run() {
             /*
              * Keep on reading from the socket till we receive "Bye" from the
@@ -749,13 +749,13 @@ public class ChatBox extends javax.swing.JFrame {
                     }
                     //</editor-fold>
                     
-                    if (responseLine.indexOf("*** Bye") != -1) {
+                    if (responseLine.contains("*** Bye")) {
                         break;
                     }
                 }
                 closed = true;
             } catch (IOException e) {
-                content.append("IOException:  " + e);
+                content.append("IOException:  ").append(e);
                 jTextPane1.setText(content.toString());
                 e.printStackTrace();
             }

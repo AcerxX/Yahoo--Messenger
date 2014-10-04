@@ -5,8 +5,6 @@
  */
 package yahoo.messenger;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author alexa_000
@@ -239,6 +237,7 @@ public class Images extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Images().setVisible(true);
             }

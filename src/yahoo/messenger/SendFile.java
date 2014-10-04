@@ -72,7 +72,7 @@ public class SendFile extends javax.swing.JFrame {
                 int len = Integer.parseInt(inReader.readLine());
                 byte[] buffer = new byte[len];
 
-                int bytesRead = 0;
+                int bytesRead;
 
                 total = 0;
                 start = System.currentTimeMillis();
