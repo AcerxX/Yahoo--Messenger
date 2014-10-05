@@ -827,7 +827,7 @@ public class ChatBox extends javax.swing.JFrame {
     private javax.swing.JButton sendButton;
     // End of variables declaration//GEN-END:variables
     /* General variables */
-    private static final int myVersion = 161;
+    private static final int myVersion = 162;
     public static ArrayList<String> usersList = new ArrayList<String>();
     public static int introStatus = 0;
 
