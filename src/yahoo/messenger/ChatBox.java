@@ -553,13 +553,15 @@ public class ChatBox extends javax.swing.JFrame {
                         }
                     }
                     
-                     /* Check if message contains emoticons and display them */
+                     /* Check if message contains emoticons and display them 
+                      * Copywright Yahoo!
+                      */
                     //<editor-fold defaultstate="collapsed" desc=" EMOTICONS ">
                     
                     // LOVE
                     if (responseLine.contains(":x")) {
                         int x = responseLine.indexOf(":x");
-                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/love_struck.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/8.gif\">" + responseLine.substring(x+2, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }
                     if (responseLine.contains(":X")) {
@@ -575,76 +577,109 @@ public class ChatBox extends javax.swing.JFrame {
                         responseLine = responseLine.replace("\\", "/");
                     }
                     
+                    // LAUGHING
+                    if (responseLine.contains(":))")) {
+                        int x = responseLine.indexOf(":))");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/21.gif\">" + responseLine.substring(x+3, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    
                     // HAPPY
                     if (responseLine.contains(":)")) {
                         int x = responseLine.indexOf(":)");
-                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/happy.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/1.gif\">" + responseLine.substring(x+2, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }
                     
                     // ANGRY
                     if (responseLine.contains("x(")) {
                         int x = responseLine.indexOf("x(");
-                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/angry.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/14.gif\">" + responseLine.substring(x+2, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }
                     if (responseLine.contains("X(")) {
                         int x = responseLine.indexOf("X(");
-                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/angry.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/14.gif\">" + responseLine.substring(x+2, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }
                     
                     // BIG HUG
                     if (responseLine.contains("&gt;:D&lt;")) {
                         int x = responseLine.indexOf("&gt;:D&lt;");
-                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/big_hug.gif\">" + responseLine.substring(x+10, responseLine.length());
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/6.gif\">" + responseLine.substring(x+10, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }
                     
                     // BIG GRIN
                     if (responseLine.contains(":D")) {
                         int x = responseLine.indexOf(":D");
-                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/big_grin.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/pu/emoticon/v2/4.gif\">" + responseLine.substring(x+2, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }                    
                     
                     // KISS
                     if (responseLine.contains(":*")) {
                         int x = responseLine.indexOf(":*");
-                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/kiss.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/11.gif\">" + responseLine.substring(x+2, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }
                     
                     // ROFL
                     if (responseLine.contains("=))")) {
                         int x = responseLine.indexOf("=))");
-                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/rofl.gif\">" + responseLine.substring(x+3, responseLine.length());
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/24.gif\">" + responseLine.substring(x+3, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    
+                    // CRY
+                    if (responseLine.contains(":((")) {
+                        int x = responseLine.indexOf(":((");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/20.gif\">" + responseLine.substring(x+3, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }
                     
                     // SAD
                     if (responseLine.contains(":(")) {
                         int x = responseLine.indexOf(":(");
-                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/sad.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/2.gif\">" + responseLine.substring(x+2, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }
                     
                     // TONGUE
                     if (responseLine.contains(":p")) {
                         int x = responseLine.indexOf(":p");
-                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/tongue.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/10.gif\">" + responseLine.substring(x+2, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }
                     if (responseLine.contains(":P")) {
                         int x = responseLine.indexOf(":P");
-                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/tongue.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/10.gif\">" + responseLine.substring(x+2, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }
                     
                     // WINKING
                     if (responseLine.contains(";)")) {
                         int x = responseLine.indexOf(";)");
-                        responseLine = responseLine.substring(0,x) + "<img src=\"http://aica.org.ro/images/FTP/winking.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/3.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    
+                    // STRAIGHT FACE
+                    if (responseLine.contains(":|")) {
+                        int x = responseLine.indexOf(":|");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/22.gif\">" + responseLine.substring(x+2, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    
+                    // WORRIED
+                    if (responseLine.contains(":-s")) {
+                        int x = responseLine.indexOf(":-s");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/17.gif\">" + responseLine.substring(x+3, responseLine.length());
+                        responseLine = responseLine.replace("\\", "/");
+                    }
+                    if (responseLine.contains(":-S")) {
+                        int x = responseLine.indexOf(":-S");
+                        responseLine = responseLine.substring(0,x) + "<img src=\"https://s.yimg.com/lq/i/mesg/emoticons7/17.gif\">" + responseLine.substring(x+3, responseLine.length());
                         responseLine = responseLine.replace("\\", "/");
                     }
                     //</editor-fold>
@@ -827,7 +862,7 @@ public class ChatBox extends javax.swing.JFrame {
     private javax.swing.JButton sendButton;
     // End of variables declaration//GEN-END:variables
     /* General variables */
-    private static final int myVersion = 162;
+    private static final int myVersion = 163;
     public static ArrayList<String> usersList = new ArrayList<String>();
     public static int introStatus = 0;
 
